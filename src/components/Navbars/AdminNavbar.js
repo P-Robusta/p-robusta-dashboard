@@ -1,36 +1,21 @@
-/*!
+import React, { Component } from 'react';
+import { useLocation } from 'react-router-dom';
+import {
+  Navbar, Container, Nav, Dropdown, Button
+} from 'react-bootstrap';
 
-=========================================================
-* Light Bootstrap Dashboard React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import React, { Component } from "react";
-import { useLocation } from "react-router-dom";
-import { Navbar, Container, Nav, Dropdown, Button } from "react-bootstrap";
-
-import routes from "routes.js";
+import routes from 'routes.js';
 
 function Header() {
   const location = useLocation();
   const mobileSidebarToggle = (e) => {
     e.preventDefault();
-    document.documentElement.classList.toggle("nav-open");
-    var node = document.createElement("div");
-    node.id = "bodyClick";
+    document.documentElement.classList.toggle('nav-open');
+    const node = document.createElement('div');
+    node.id = 'bodyClick';
     node.onclick = function () {
       this.parentElement.removeChild(this);
-      document.documentElement.classList.toggle("nav-open");
+      document.documentElement.classList.toggle('nav-open');
     };
     document.body.appendChild(node);
   };
@@ -41,7 +26,7 @@ function Header() {
         return routes[i].name;
       }
     }
-    return "Brand";
+    return 'Brand';
   };
   return (
     <Navbar bg="light" expand="lg">
@@ -52,7 +37,7 @@ function Header() {
             className="d-lg-none btn-fill d-flex justify-content-center align-items-center rounded-circle p-2"
             onClick={mobileSidebarToggle}
           >
-            <i className="fas fa-ellipsis-v"></i>
+            <i className="fas fa-ellipsis-v" />
           </Button>
           <Navbar.Brand
             href="#home"
@@ -63,9 +48,9 @@ function Header() {
           </Navbar.Brand>
         </div>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="mr-2">
-          <span className="navbar-toggler-bar burger-lines"></span>
-          <span className="navbar-toggler-bar burger-lines"></span>
-          <span className="navbar-toggler-bar burger-lines"></span>
+          <span className="navbar-toggler-bar burger-lines" />
+          <span className="navbar-toggler-bar burger-lines" />
+          <span className="navbar-toggler-bar burger-lines" />
         </Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="nav mr-auto" navbar>
@@ -76,7 +61,7 @@ function Header() {
                 onClick={(e) => e.preventDefault()}
                 className="m-0"
               >
-                <i className="nc-icon nc-palette"></i>
+                <i className="nc-icon nc-palette" />
                 <span className="d-lg-none ml-1">Dashboard</span>
               </Nav.Link>
             </Nav.Item>
@@ -88,7 +73,7 @@ function Header() {
                 variant="default"
                 className="m-0"
               >
-                <i className="nc-icon nc-planet"></i>
+                <i className="nc-icon nc-planet" />
                 <span className="notification">5</span>
                 <span className="d-lg-none ml-1">Notification</span>
               </Dropdown.Toggle>
@@ -131,7 +116,7 @@ function Header() {
                 href="#pablo"
                 onClick={(e) => e.preventDefault()}
               >
-                <i className="nc-icon nc-zoom-split"></i>
+                <i className="nc-icon nc-zoom-split" />
                 <span className="d-lg-block"> Search</span>
               </Nav.Link>
             </Nav.Item>
@@ -149,7 +134,7 @@ function Header() {
             <Dropdown as={Nav.Item}>
               <Dropdown.Toggle
                 aria-expanded={false}
-                aria-haspopup={true}
+                aria-haspopup
                 as={Nav.Link}
                 data-toggle="dropdown"
                 id="navbarDropdownMenuLink"
@@ -183,7 +168,7 @@ function Header() {
                 >
                   Something else here
                 </Dropdown.Item>
-                <div className="divider"></div>
+                <div className="divider" />
                 <Dropdown.Item
                   href="#pablo"
                   onClick={(e) => e.preventDefault()}

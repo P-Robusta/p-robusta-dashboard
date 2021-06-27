@@ -1,29 +1,12 @@
-/*!
+import React, { Component } from 'react';
+import {
+  Dropdown, Badge, Button, Form
+} from 'react-bootstrap';
 
-=========================================================
-* Light Bootstrap Dashboard React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-/*eslint-disable*/
-import React, { Component } from "react";
-
-import { Dropdown, Badge, Button, Form } from "react-bootstrap";
-
-import sideBarImage1 from "assets/img/sidebar-1.jpg";
-import sideBarImage2 from "assets/img/sidebar-2.jpg";
-import sideBarImage3 from "assets/img/sidebar-3.jpg";
-import sideBarImage4 from "assets/img/sidebar-4.jpg";
+import sideBarImage1 from 'assets/img/sidebar-1.jpg';
+import sideBarImage2 from 'assets/img/sidebar-2.jpg';
+import sideBarImage3 from 'assets/img/sidebar-3.jpg';
+import sideBarImage4 from 'assets/img/sidebar-4.jpg';
 
 function FixedPlugin({
   hasImage,
@@ -56,7 +39,7 @@ function FixedPlugin({
           variant=""
           className="text-white border-0 opacity-100"
         >
-          <i className="fas fa-cogs fa-2x mt-1"></i>
+          <i className="fas fa-cogs fa-2x mt-1" />
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <li className="adjustments-line d-flex align-items-center justify-content-between">
@@ -73,39 +56,39 @@ function FixedPlugin({
             <div className="pull-right">
               <Badge
                 variant="secondary"
-                className={color === "black" ? "active" : ""}
-                onClick={() => setColor("black")}
-              ></Badge>
+                className={color === 'black' ? 'active' : ''}
+                onClick={() => setColor('black')}
+              />
               <Badge
                 variant="azure"
-                className={color === "azure" ? "active" : ""}
-                onClick={() => setColor("azure")}
-              ></Badge>
+                className={color === 'azure' ? 'active' : ''}
+                onClick={() => setColor('azure')}
+              />
               <Badge
                 variant="green"
-                className={color === "green" ? "active" : ""}
-                onClick={() => setColor("green")}
-              ></Badge>
+                className={color === 'green' ? 'active' : ''}
+                onClick={() => setColor('green')}
+              />
               <Badge
                 variant="orange"
-                className={color === "orange" ? "active" : ""}
-                onClick={() => setColor("orange")}
-              ></Badge>
+                className={color === 'orange' ? 'active' : ''}
+                onClick={() => setColor('orange')}
+              />
               <Badge
                 variant="red"
-                className={color === "red" ? "active" : ""}
-                onClick={() => setColor("red")}
-              ></Badge>
+                className={color === 'red' ? 'active' : ''}
+                onClick={() => setColor('red')}
+              />
               <Badge
                 variant="purple"
-                className={color === "purple" ? "active" : ""}
-                onClick={() => setColor("purple")}
-              ></Badge>
+                className={color === 'purple' ? 'active' : ''}
+                onClick={() => setColor('purple')}
+              />
             </div>
-            <div className="clearfix"></div>
+            <div className="clearfix" />
           </li>
           <li className="header-title">Sidebar Images</li>
-          <li className={image === sideBarImage1 ? "active" : ""}>
+          <li className={image === sideBarImage1 ? 'active' : ''}>
             <a
               className="img-holder switch-trigger d-block"
               href="#pablo"
@@ -114,10 +97,10 @@ function FixedPlugin({
                 setImage(sideBarImage1);
               }}
             >
-              <img alt="..." src={sideBarImage1}></img>
+              <img alt="..." src={sideBarImage1} />
             </a>
           </li>
-          <li className={image === sideBarImage2 ? "active" : ""}>
+          <li className={image === sideBarImage2 ? 'active' : ''}>
             <a
               className="img-holder switch-trigger d-block"
               href="#pablo"
@@ -126,10 +109,10 @@ function FixedPlugin({
                 setImage(sideBarImage2);
               }}
             >
-              <img alt="..." src={sideBarImage2}></img>
+              <img alt="..." src={sideBarImage2} />
             </a>
           </li>
-          <li className={image === sideBarImage3 ? "active" : ""}>
+          <li className={image === sideBarImage3 ? 'active' : ''}>
             <a
               className="img-holder switch-trigger d-block"
               href="#pablo"
@@ -138,10 +121,10 @@ function FixedPlugin({
                 setImage(sideBarImage3);
               }}
             >
-              <img alt="..." src={sideBarImage3}></img>
+              <img alt="..." src={sideBarImage3} />
             </a>
           </li>
-          <li className={image === sideBarImage4 ? "active" : ""}>
+          <li className={image === sideBarImage4 ? 'active' : ''}>
             <a
               className="img-holder switch-trigger d-block"
               href="#pablo"
@@ -150,7 +133,7 @@ function FixedPlugin({
                 setImage(sideBarImage4);
               }}
             >
-              <img alt="..." src={sideBarImage4}></img>
+              <img alt="..." src={sideBarImage4} />
             </a>
           </li>
           <li className="button-container">
@@ -207,14 +190,16 @@ function FixedPlugin({
               id="twitter"
               variant="twitter"
             >
-              <i className="fab fa-twitter"></i>· 256
+              <i className="fab fa-twitter" />
+              · 256
             </Button>
             <Button
               className="btn-social btn-outline btn-round sharrre"
               id="facebook"
               variant="facebook"
             >
-              <i className="fab fa-facebook-square"></i>· 426
+              <i className="fab fa-facebook-square" />
+              · 426
             </Button>
           </li>
         </Dropdown.Menu>
