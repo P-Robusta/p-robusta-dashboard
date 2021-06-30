@@ -1,17 +1,17 @@
-import React from "react";
+/* eslint-disable global-require */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React from 'react';
 
 // react-bootstrap components
 import {
-  Badge,
   Button,
   Card,
   Form,
-  Navbar,
-  Nav,
   Container,
   Row,
   Col,
-} from "react-bootstrap";
+} from 'react-bootstrap';
 
 function User() {
   return (
@@ -21,7 +21,7 @@ function User() {
           <Col md="8">
             <Card>
               <Card.Header>
-                <Card.Title as="h4">Edit Profile</Card.Title>
+                <Card.Title as="h4">Create Post</Card.Title>
               </Card.Header>
               <Card.Body>
                 <Form>
@@ -34,7 +34,7 @@ function User() {
                           disabled
                           placeholder="Company"
                           type="text"
-                        ></Form.Control>
+                        />
                       </Form.Group>
                     </Col>
                     <Col className="px-1" md="3">
@@ -44,7 +44,7 @@ function User() {
                           defaultValue="michael23"
                           placeholder="Username"
                           type="text"
-                        ></Form.Control>
+                        />
                       </Form.Group>
                     </Col>
                     <Col className="pl-1" md="4">
@@ -55,7 +55,7 @@ function User() {
                         <Form.Control
                           placeholder="Email"
                           type="email"
-                        ></Form.Control>
+                        />
                       </Form.Group>
                     </Col>
                   </Row>
@@ -67,7 +67,7 @@ function User() {
                           defaultValue="Mike"
                           placeholder="Company"
                           type="text"
-                        ></Form.Control>
+                        />
                       </Form.Group>
                     </Col>
                     <Col className="pl-1" md="6">
@@ -77,7 +77,7 @@ function User() {
                           defaultValue="Andrew"
                           placeholder="Last Name"
                           type="text"
-                        ></Form.Control>
+                        />
                       </Form.Group>
                     </Col>
                   </Row>
@@ -89,7 +89,7 @@ function User() {
                           defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
                           placeholder="Home Address"
                           type="text"
-                        ></Form.Control>
+                        />
                       </Form.Group>
                     </Col>
                   </Row>
@@ -101,7 +101,7 @@ function User() {
                           defaultValue="Mike"
                           placeholder="City"
                           type="text"
-                        ></Form.Control>
+                        />
                       </Form.Group>
                     </Col>
                     <Col className="px-1" md="4">
@@ -111,7 +111,7 @@ function User() {
                           defaultValue="Andrew"
                           placeholder="Country"
                           type="text"
-                        ></Form.Control>
+                        />
                       </Form.Group>
                     </Col>
                     <Col className="pl-1" md="4">
@@ -120,7 +120,7 @@ function User() {
                         <Form.Control
                           placeholder="ZIP Code"
                           type="number"
-                        ></Form.Control>
+                        />
                       </Form.Group>
                     </Col>
                   </Row>
@@ -135,7 +135,7 @@ function User() {
                           placeholder="Here can be your description"
                           rows="4"
                           as="textarea"
-                        ></Form.Control>
+                        />
                       </Form.Group>
                     </Col>
                   </Row>
@@ -146,7 +146,7 @@ function User() {
                   >
                     Update Profile
                   </Button>
-                  <div className="clearfix"></div>
+                  <div className="clearfix" />
                 </Form>
               </Card.Body>
             </Card>
@@ -157,10 +157,10 @@ function User() {
                 <img
                   alt="..."
                   src={
-                    require("assets/img/photo-1431578500526-4d9613015464.jpeg")
+                    require('assets/img/photo-1431578500526-4d9613015464.jpeg')
                       .default
                   }
-                ></img>
+                />
               </div>
               <Card.Body>
                 <div className="author">
@@ -168,19 +168,23 @@ function User() {
                     <img
                       alt="..."
                       className="avatar border-gray"
-                      src={require("assets/img/faces/face-3.jpg").default}
-                    ></img>
+                      src={require('assets/img/faces/face-3.jpg').default}
+                    />
                     <h5 className="title">Mike Andrew</h5>
                   </a>
                   <p className="description">michael24</p>
                 </div>
                 <p className="description text-center">
-                  "Lamborghini Mercy <br></br>
-                  Your chick she so thirsty <br></br>
-                  I'm in that two seat Lambo"
+                  Lamborghini Mercy
+                  {' '}
+                  <br />
+                  Your chick she so thirsty
+                  {' '}
+                  <br />
+                  Im in that two seat Lambo
                 </p>
               </Card.Body>
-              <hr></hr>
+              <hr />
               <div className="button-container mr-auto ml-auto">
                 <Button
                   className="btn-simple btn-icon"
@@ -188,7 +192,7 @@ function User() {
                   onClick={(e) => e.preventDefault()}
                   variant="link"
                 >
-                  <i className="fab fa-facebook-square"></i>
+                  <i className="fab fa-facebook-square" />
                 </Button>
                 <Button
                   className="btn-simple btn-icon"
@@ -196,7 +200,7 @@ function User() {
                   onClick={(e) => e.preventDefault()}
                   variant="link"
                 >
-                  <i className="fab fa-twitter"></i>
+                  <i className="fab fa-twitter" />
                 </Button>
                 <Button
                   className="btn-simple btn-icon"
@@ -204,7 +208,7 @@ function User() {
                   onClick={(e) => e.preventDefault()}
                   variant="link"
                 >
-                  <i className="fab fa-google-plus-square"></i>
+                  <i className="fab fa-google-plus-square" />
                 </Button>
               </div>
             </Card>

@@ -1,16 +1,12 @@
-import React from "react";
+import React from 'react';
 
 // react-bootstrap components
 import {
-  Badge,
-  Button,
   Card,
-  Navbar,
-  Nav,
   Container,
   Row,
   Col,
-} from "react-bootstrap";
+} from 'react-bootstrap';
 
 function Typography() {
   return (
@@ -64,7 +60,8 @@ function Typography() {
                 </div>
                 <div className="typography-line">
                   <p>
-                    <span>Paragraph</span>I will be the leader of a company that
+                    <span>Paragraph</span>
+                    I will be the leader of a company that
                     ends up being worth billions of dollars, because I got the
                     answers. I understand culture. I am the nucleus. I think
                     that’s a responsibility that I have, to push possibilities,
@@ -75,13 +72,14 @@ function Typography() {
                   <span>Quote</span>
                   <blockquote>
                     <p className="blockquote blockquote-primary">
-                      "I will be the leader of a company that ends up being
+                      I will be the leader of a company that ends up being
                       worth billions of dollars, because I got the answers. I
                       understand culture. I am the nucleus. I think that’s a
                       responsibility that I have, to push possibilities, to show
-                      people, this is the level that things could be at."{" "}
-                      <br></br>
-                      <br></br>
+                      people, this is the level that things could be at.
+                      {' '}
+                      <br />
+                      <br />
                       <small>- Noaa</small>
                     </p>
                   </blockquote>
@@ -131,8 +129,10 @@ function Typography() {
                 <div className="typography-line">
                   <h2>
                     <span>Small Tag</span>
-                    Header with small subtitle <br></br>
-                    <small>Use "small" tag for the headers</small>
+                    Header with small subtitle
+                    {' '}
+                    <br />
+                    <small>Use small tag for the headers</small>
                   </h2>
                 </div>
               </Card.Body>

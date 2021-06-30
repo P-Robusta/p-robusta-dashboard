@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+/* eslint-disable react/prop-types */
+/* eslint-disable import/no-unresolved */
+import React from 'react';
 import {
   Dropdown, Badge, Button, Form
 } from 'react-bootstrap';
@@ -146,7 +148,7 @@ function FixedPlugin({
                 target="_blank"
                 variant="info"
               >
-                Download, it's free!
+                Download, its free!
               </Button>
             </div>
           </li>

@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
+/* eslint-disable func-names */
+/* eslint-disable react/no-this-in-sfc */
+/* eslint-disable no-undef */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-unused-vars */
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Navbar, Container, Nav, Dropdown, Button
 } from 'react-bootstrap';
-
-import routes from 'routes.js';
+import routes from '../../routes';
 
 function Header() {
   const location = useLocation();

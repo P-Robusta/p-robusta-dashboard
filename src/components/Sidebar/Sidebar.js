@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/prop-types */
 /*!
 
 =========================================================
@@ -15,51 +17,47 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { Component } from "react";
-import { useLocation, NavLink } from "react-router-dom";
+import React from 'react';
+import { useLocation, NavLink } from 'react-router-dom';
 
-import { Nav } from "react-bootstrap";
-
-import logo from "assets/img/reactlogo.png";
+import { Nav } from 'react-bootstrap';
 
 function Sidebar({ color, image, routes }) {
   const location = useLocation();
-  const activeRoute = (routeName) => {
-    return location.pathname.indexOf(routeName) > -1 ? "active" : "";
-  };
+  const activeRoute = (routeName) => (location.pathname.indexOf(routeName) > -1 ? 'active' : '');
   return (
     <div className="sidebar" data-image={image} data-color={color}>
       <div
         className="sidebar-background"
         style={{
-          backgroundImage: "url(" + image + ")",
+          backgroundImage: `url(${image})`,
         }}
       />
       <div className="sidebar-wrapper">
         <div className="logo d-flex align-items-center justify-content-start">
           <a
-            href="https://www.creative-tim.com?ref=lbd-sidebar"
+            href="hhttps://www.facebook.com/passerelles.numeriques"
             className="simple-text logo-mini mx-1"
           >
             <div className="logo-img">
               <img
-                src={require("assets/img/reactlogo.png").default}
-                alt="..."
+                src="https://www.passerellesnumeriques.org/wp-content/uploads/2016/03/pn-logo.png"
+                alt="PNV-"
               />
             </div>
           </a>
-          <a className="simple-text" href="http://www.creative-tim.com">
-            Creative Tim
+          <a className="simple-text" href="https://www.facebook.com/passerelles.numeriques">
+            Create By Robusta Group
           </a>
         </div>
         <Nav>
           {routes.map((prop, key) => {
-            if (!prop.redirect)
+            if (!prop.redirect) {
               return (
                 <li
                   className={
                     prop.upgrade
-                      ? "active active-pro"
+                      ? 'active active-pro'
                       : activeRoute(prop.layout + prop.path)
                   }
                   key={key}
@@ -74,6 +72,7 @@ function Sidebar({ color, image, routes }) {
                   </NavLink>
                 </li>
               );
+            }
             return null;
           })}
         </Nav>

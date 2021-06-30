@@ -1,17 +1,13 @@
-import React from "react";
+import React from 'react';
 
 // react-bootstrap components
 import {
-  Badge,
-  Button,
   Card,
-  Navbar,
-  Nav,
   Table,
   Container,
   Row,
   Col,
-} from "react-bootstrap";
+} from 'react-bootstrap';
 
 function TableList() {
   return (

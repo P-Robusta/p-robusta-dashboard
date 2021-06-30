@@ -1,58 +1,59 @@
-import React from "react";
+import React from 'react';
 // react plugin for creating notifications over the dashboard
-import NotificationAlert from "react-notification-alert";
+import NotificationAlert from 'react-notification-alert';
 // react-bootstrap components
 import {
   Alert,
-  Badge,
   Button,
   Card,
   Modal,
-  Navbar,
-  Nav,
   Container,
   Row,
   Col,
-} from "react-bootstrap";
+} from 'react-bootstrap';
 
 function Notifications() {
   const [showModal, setShowModal] = React.useState(false);
   const notificationAlertRef = React.useRef(null);
   const notify = (place) => {
-    var color = Math.floor(Math.random() * 5 + 1);
-    var type;
+    const color = Math.floor(Math.random() * 5 + 1);
+    let type;
     switch (color) {
       case 1:
-        type = "primary";
+        type = 'primary';
         break;
       case 2:
-        type = "success";
+        type = 'success';
         break;
       case 3:
-        type = "danger";
+        type = 'danger';
         break;
       case 4:
-        type = "warning";
+        type = 'warning';
         break;
       case 5:
-        type = "info";
+        type = 'info';
         break;
       default:
         break;
     }
-    var options = {};
+    let options = {};
     options = {
-      place: place,
+      place,
       message: (
         <div>
           <div>
-            Welcome to <b>Light Bootstrap Dashboard React</b> - a beautiful
+            Welcome to
+            {' '}
+            <b>Light Bootstrap Dashboard React</b>
+            {' '}
+            - a beautiful
             freebie for every web developer.
           </div>
         </div>
       ),
-      type: type,
-      icon: "nc-icon nc-bell-55",
+      type,
+      icon: 'nc-icon nc-bell-55',
       autoDismiss: 7,
     };
     notificationAlertRef.current.notificationAlert(options);
@@ -67,7 +68,8 @@ function Notifications() {
           <Card.Header>
             <Card.Title as="h4">Notifications</Card.Title>
             <p className="card-category">
-              Handcrafted by our friend and colleague{" "}
+              Handcrafted by our friend and colleague
+              {' '}
               <a
                 href="https://github.com/EINazare"
                 rel="noopener noreferrer"
@@ -75,7 +77,8 @@ function Notifications() {
               >
                 Nazare Emanuel-Ioan
               </a>
-              . Please checkout the{" "}
+              . Please checkout the
+              {' '}
               <a
                 href="https://github.com/creativetimofficial/react-notification-alert"
                 rel="noopener noreferrer"
@@ -96,50 +99,50 @@ function Notifications() {
                 </Alert>
                 <Alert variant="info">
                   <button
-                    aria-hidden={true}
+                    aria-hidden
                     className="close"
                     data-dismiss="alert"
                     type="button"
                   >
-                    <i className="nc-icon nc-simple-remove"></i>
+                    <i className="nc-icon nc-simple-remove" />
                   </button>
                   <span>This is a notification with close button.</span>
                 </Alert>
                 <Alert className="alert-with-icon" variant="info">
                   <button
-                    aria-hidden={true}
+                    aria-hidden
                     className="close"
                     data-dismiss="alert"
                     type="button"
                   >
-                    <i className="nc-icon nc-simple-remove"></i>
+                    <i className="nc-icon nc-simple-remove" />
                   </button>
                   <span
                     data-notify="icon"
                     className="nc-icon nc-bell-55"
-                  ></span>
+                  />
                   <span>
                     This is a notification with close button and icon.
                   </span>
                 </Alert>
                 <Alert className="alert-with-icon" variant="info">
                   <button
-                    aria-hidden={true}
+                    aria-hidden
                     className="close"
                     data-dismiss="alert"
                     type="button"
                   >
-                    <i className="nc-icon nc-simple-remove"></i>
+                    <i className="nc-icon nc-simple-remove" />
                   </button>
                   <span
                     data-notify="icon"
                     className="nc-icon nc-bell-55"
-                  ></span>
+                  />
                   <span>
                     This is a notification with close button and icon and have
                     many lines. You can see that the icon and the close button
                     are always vertically aligned. This is a beautiful
-                    notification. So you don't have to worry about the style.
+                    notification. So you dont have to worry about the style.
                   </span>
                 </Alert>
               </Col>
@@ -149,78 +152,78 @@ function Notifications() {
                 </h5>
                 <Alert variant="primary">
                   <button
-                    aria-hidden={true}
+                    aria-hidden
                     className="close"
                     data-dismiss="alert"
                     type="button"
                   >
-                    <i className="nc-icon nc-simple-remove"></i>
+                    <i className="nc-icon nc-simple-remove" />
                   </button>
                   <span>
                     <b>Primary -</b>
-                    This is a regular notification made with ".alert-primary"
+                    This
                   </span>
                 </Alert>
                 <Alert variant="info">
                   <button
-                    aria-hidden={true}
+                    aria-hidden
                     className="close"
                     data-dismiss="alert"
                     type="button"
                   >
-                    <i className="nc-icon nc-simple-remove"></i>
+                    <i className="nc-icon nc-simple-remove" />
                   </button>
                   <span>
                     <b>Info -</b>
-                    This is a regular notification made with ".alert-info"
+                    This
                   </span>
                 </Alert>
                 <Alert variant="success">
                   <button
-                    aria-hidden={true}
+                    aria-hidden
                     className="close"
                     data-dismiss="alert"
                     type="button"
                   >
-                    <i className="nc-icon nc-simple-remove"></i>
+                    <i className="nc-icon nc-simple-remove" />
                   </button>
                   <span>
                     <b>Success -</b>
-                    This is a regular notification made with ".alert-success"
+                    This is a regular notification
                   </span>
                 </Alert>
                 <Alert variant="warning">
                   <button
-                    aria-hidden={true}
+                    aria-hidden
                     className="close"
                     data-dismiss="alert"
                     type="button"
                   >
-                    <i className="nc-icon nc-simple-remove"></i>
+                    <i className="nc-icon nc-simple-remove" />
                   </button>
                   <span>
                     <b>Warning -</b>
-                    This is a regular notification made with ".alert-warning"
+                    This is a regular notification
                   </span>
                 </Alert>
                 <Alert variant="danger">
                   <button
-                    aria-hidden={true}
+                    aria-hidden
                     className="close"
                     data-dismiss="alert"
                     type="button"
                   >
-                    <i className="nc-icon nc-simple-remove"></i>
+                    <i className="nc-icon nc-simple-remove" />
                   </button>
                   <span>
                     <b>Danger -</b>
-                    This is a regular notification made with ".alert-danger"
+                    This is a regular notification made with
                   </span>
                 </Alert>
               </Col>
             </Row>
-            <br></br>
-            <br></br>
+            <br />
+            <br />
             <div className="places-buttons">
               <Row>
                 <Col className="offset-md-3 text-center" md="6">
@@ -232,34 +235,34 @@ function Notifications() {
               </Row>
               <Row className="justify-content-center">
                 <Col lg="3" md="3">
-                  <Button block onClick={() => notify("tl")} variant="default">
+                  <Button block onClick={() => notify('tl')} variant="default">
                     Top Left
                   </Button>
                 </Col>
                 <Col lg="3" md="3">
-                  <Button block onClick={() => notify("tc")} variant="default">
+                  <Button block onClick={() => notify('tc')} variant="default">
                     Top Center
                   </Button>
                 </Col>
                 <Col lg="3" md="3">
-                  <Button block onClick={() => notify("tr")} variant="default">
+                  <Button block onClick={() => notify('tr')} variant="default">
                     Top Right
                   </Button>
                 </Col>
               </Row>
               <Row className="justify-content-center">
                 <Col lg="3" md="3">
-                  <Button block onClick={() => notify("bl")} variant="default">
+                  <Button block onClick={() => notify('bl')} variant="default">
                     Bottom Left
                   </Button>
                 </Col>
                 <Col lg="3" md="3">
-                  <Button block onClick={() => notify("bc")} variant="default">
+                  <Button block onClick={() => notify('bc')} variant="default">
                     Bottom Center
                   </Button>
                 </Col>
                 <Col lg="3" md="3">
-                  <Button block onClick={() => notify("br")} variant="default">
+                  <Button block onClick={() => notify('br')} variant="default">
                     Bottom Right
                   </Button>
                 </Col>
@@ -287,7 +290,7 @@ function Notifications() {
         >
           <Modal.Header className="justify-content-center">
             <div className="modal-profile">
-              <i className="nc-icon nc-bulb-63"></i>
+              <i className="nc-icon nc-bulb-63" />
             </div>
           </Modal.Header>
           <Modal.Body className="text-center">

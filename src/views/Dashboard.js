@@ -1,12 +1,9 @@
-import React from "react";
-import ChartistGraph from "react-chartist";
+import React from 'react';
+import ChartistGraph from 'react-chartist';
 // react-bootstrap components
 import {
-  Badge,
   Button,
   Card,
-  Navbar,
-  Nav,
   Table,
   Container,
   Row,
@@ -14,7 +11,7 @@ import {
   Form,
   OverlayTrigger,
   Tooltip,
-} from "react-bootstrap";
+} from 'react-bootstrap';
 
 function Dashboard() {
   return (
@@ -27,7 +24,7 @@ function Dashboard() {
                 <Row>
                   <Col xs="5">
                     <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-chart text-warning"></i>
+                      <i className="nc-icon nc-chart text-warning" />
                     </div>
                   </Col>
                   <Col xs="7">
@@ -39,9 +36,9 @@ function Dashboard() {
                 </Row>
               </Card.Body>
               <Card.Footer>
-                <hr></hr>
+                <hr />
                 <div className="stats">
-                  <i className="fas fa-redo mr-1"></i>
+                  <i className="fas fa-redo mr-1" />
                   Update Now
                 </div>
               </Card.Footer>
@@ -53,7 +50,7 @@ function Dashboard() {
                 <Row>
                   <Col xs="5">
                     <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-light-3 text-success"></i>
+                      <i className="nc-icon nc-light-3 text-success" />
                     </div>
                   </Col>
                   <Col xs="7">
@@ -65,9 +62,9 @@ function Dashboard() {
                 </Row>
               </Card.Body>
               <Card.Footer>
-                <hr></hr>
+                <hr />
                 <div className="stats">
-                  <i className="far fa-calendar-alt mr-1"></i>
+                  <i className="far fa-calendar-alt mr-1" />
                   Last day
                 </div>
               </Card.Footer>
@@ -79,7 +76,7 @@ function Dashboard() {
                 <Row>
                   <Col xs="5">
                     <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-vector text-danger"></i>
+                      <i className="nc-icon nc-vector text-danger" />
                     </div>
                   </Col>
                   <Col xs="7">
@@ -91,9 +88,9 @@ function Dashboard() {
                 </Row>
               </Card.Body>
               <Card.Footer>
-                <hr></hr>
+                <hr />
                 <div className="stats">
-                  <i className="far fa-clock-o mr-1"></i>
+                  <i className="far fa-clock-o mr-1" />
                   In the last hour
                 </div>
               </Card.Footer>
@@ -105,7 +102,7 @@ function Dashboard() {
                 <Row>
                   <Col xs="5">
                     <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-favourite-28 text-primary"></i>
+                      <i className="nc-icon nc-favourite-28 text-primary" />
                     </div>
                   </Col>
                   <Col xs="7">
@@ -117,9 +114,9 @@ function Dashboard() {
                 </Row>
               </Card.Body>
               <Card.Footer>
-                <hr></hr>
+                <hr />
                 <div className="stats">
-                  <i className="fas fa-redo mr-1"></i>
+                  <i className="fas fa-redo mr-1" />
                   Update now
                 </div>
               </Card.Footer>
@@ -138,17 +135,17 @@ function Dashboard() {
                   <ChartistGraph
                     data={{
                       labels: [
-                        "9:00AM",
-                        "12:00AM",
-                        "3:00PM",
-                        "6:00PM",
-                        "9:00PM",
-                        "12:00PM",
-                        "3:00AM",
-                        "6:00AM",
+                        '9:00AM',
+                        '12:00AM',
+                        '3:00PM',
+                        '6:00PM',
+                        '9:00PM',
+                        '12:00PM',
+                        '3:00AM',
+                        '6:00AM',
                       ],
                       series: [
-                        [287, 385, 490, 492, 554, 586, 698, 695],
+                        [100, 385, 490, 492, 554, 586, 698, 695],
                         [67, 152, 143, 240, 287, 335, 435, 437],
                         [23, 113, 67, 108, 190, 239, 307, 308],
                       ],
@@ -158,7 +155,7 @@ function Dashboard() {
                       low: 0,
                       high: 800,
                       showArea: false,
-                      height: "245px",
+                      height: '245px',
                       axisX: {
                         showGrid: false,
                       },
@@ -172,10 +169,10 @@ function Dashboard() {
                     }}
                     responsiveOptions={[
                       [
-                        "screen and (max-width: 640px)",
+                        'screen and (max-width: 640px)',
                         {
                           axisX: {
-                            labelInterpolationFnc: function (value) {
+                            labelInterpolationFnc(value) {
                               return value[0];
                             },
                           },
@@ -187,14 +184,18 @@ function Dashboard() {
               </Card.Body>
               <Card.Footer>
                 <div className="legend">
-                  <i className="fas fa-circle text-info"></i>
-                  Open <i className="fas fa-circle text-danger"></i>
-                  Click <i className="fas fa-circle text-warning"></i>
+                  <i className="fas fa-circle text-info" />
+                  Open
+                  {' '}
+                  <i className="fas fa-circle text-danger" />
+                  Click
+                  {' '}
+                  <i className="fas fa-circle text-warning" />
                   Click Second Time
                 </div>
-                <hr></hr>
+                <hr />
                 <div className="stats">
-                  <i className="fas fa-history"></i>
+                  <i className="fas fa-history" />
                   Updated 3 minutes ago
                 </div>
               </Card.Footer>
@@ -213,21 +214,25 @@ function Dashboard() {
                 >
                   <ChartistGraph
                     data={{
-                      labels: ["40%", "20%", "40%"],
+                      labels: ['40%', '20%', '40%'],
                       series: [40, 20, 40],
                     }}
                     type="Pie"
                   />
                 </div>
                 <div className="legend">
-                  <i className="fas fa-circle text-info"></i>
-                  Open <i className="fas fa-circle text-danger"></i>
-                  Bounce <i className="fas fa-circle text-warning"></i>
+                  <i className="fas fa-circle text-info" />
+                  Open
+                  {' '}
+                  <i className="fas fa-circle text-danger" />
+                  Bounce
+                  {' '}
+                  <i className="fas fa-circle text-warning" />
                   Unsubscribe
                 </div>
-                <hr></hr>
+                <hr />
                 <div className="stats">
-                  <i className="far fa-clock"></i>
+                  <i className="far fa-clock" />
                   Campaign sent 2 days ago
                 </div>
               </Card.Body>
@@ -246,18 +251,18 @@ function Dashboard() {
                   <ChartistGraph
                     data={{
                       labels: [
-                        "Jan",
-                        "Feb",
-                        "Mar",
-                        "Apr",
-                        "Mai",
-                        "Jun",
-                        "Jul",
-                        "Aug",
-                        "Sep",
-                        "Oct",
-                        "Nov",
-                        "Dec",
+                        'Jan',
+                        'Feb',
+                        'Mar',
+                        'Apr',
+                        'Mai',
+                        'Jun',
+                        'Jul',
+                        'Aug',
+                        'Sep',
+                        'Oct',
+                        'Nov',
+                        'Dec',
                       ],
                       series: [
                         [
@@ -296,15 +301,15 @@ function Dashboard() {
                       axisX: {
                         showGrid: false,
                       },
-                      height: "245px",
+                      height: '245px',
                     }}
                     responsiveOptions={[
                       [
-                        "screen and (max-width: 640px)",
+                        'screen and (max-width: 640px)',
                         {
                           seriesBarDistance: 5,
                           axisX: {
-                            labelInterpolationFnc: function (value) {
+                            labelInterpolationFnc(value) {
                               return value[0];
                             },
                           },
@@ -316,13 +321,15 @@ function Dashboard() {
               </Card.Body>
               <Card.Footer>
                 <div className="legend">
-                  <i className="fas fa-circle text-info"></i>
-                  Tesla Model S <i className="fas fa-circle text-danger"></i>
+                  <i className="fas fa-circle text-info" />
+                  Tesla Model S
+                  {' '}
+                  <i className="fas fa-circle text-danger" />
                   BMW 5 Series
                 </div>
-                <hr></hr>
+                <hr />
                 <div className="stats">
-                  <i className="fas fa-check"></i>
+                  <i className="fas fa-check" />
                   Data information certified
                 </div>
               </Card.Footer>
@@ -345,29 +352,29 @@ function Dashboard() {
                               <Form.Check.Input
                                 defaultValue=""
                                 type="checkbox"
-                              ></Form.Check.Input>
-                              <span className="form-check-sign"></span>
+                              />
+                              <span className="form-check-sign" />
                             </Form.Check.Label>
                           </Form.Check>
                         </td>
                         <td>
-                          Sign contract for "What are conference organizers
-                          afraid of?"
+                          Sign contract for What are conference organizers
+                          afraid of?
                         </td>
                         <td className="td-actions text-right">
                           <OverlayTrigger
-                            overlay={
+                            overlay={(
                               <Tooltip id="tooltip-488980961">
                                 Edit Task..
                               </Tooltip>
-                            }
+                            )}
                           >
                             <Button
                               className="btn-simple btn-link p-1"
                               type="button"
                               variant="info"
                             >
-                              <i className="fas fa-edit"></i>
+                              <i className="fas fa-edit" />
                             </Button>
                           </OverlayTrigger>
                           <OverlayTrigger
@@ -380,7 +387,7 @@ function Dashboard() {
                               type="button"
                               variant="danger"
                             >
-                              <i className="fas fa-times"></i>
+                              <i className="fas fa-times" />
                             </Button>
                           </OverlayTrigger>
                         </td>
@@ -393,8 +400,8 @@ function Dashboard() {
                                 defaultChecked
                                 defaultValue=""
                                 type="checkbox"
-                              ></Form.Check.Input>
-                              <span className="form-check-sign"></span>
+                              />
+                              <span className="form-check-sign" />
                             </Form.Check.Label>
                           </Form.Check>
                         </td>
@@ -404,18 +411,18 @@ function Dashboard() {
                         </td>
                         <td className="td-actions text-right">
                           <OverlayTrigger
-                            overlay={
+                            overlay={(
                               <Tooltip id="tooltip-537440761">
                                 Edit Task..
                               </Tooltip>
-                            }
+                            )}
                           >
                             <Button
                               className="btn-simple btn-link p-1"
                               type="button"
                               variant="info"
                             >
-                              <i className="fas fa-edit"></i>
+                              <i className="fas fa-edit" />
                             </Button>
                           </OverlayTrigger>
                           <OverlayTrigger
@@ -428,7 +435,7 @@ function Dashboard() {
                               type="button"
                               variant="danger"
                             >
-                              <i className="fas fa-times"></i>
+                              <i className="fas fa-times" />
                             </Button>
                           </OverlayTrigger>
                         </td>
@@ -441,8 +448,8 @@ function Dashboard() {
                                 defaultChecked
                                 defaultValue=""
                                 type="checkbox"
-                              ></Form.Check.Input>
-                              <span className="form-check-sign"></span>
+                              />
+                              <span className="form-check-sign" />
                             </Form.Check.Label>
                           </Form.Check>
                         </td>
@@ -453,18 +460,18 @@ function Dashboard() {
                         </td>
                         <td className="td-actions text-right">
                           <OverlayTrigger
-                            overlay={
+                            overlay={(
                               <Tooltip id="tooltip-577232198">
                                 Edit Task..
                               </Tooltip>
-                            }
+                            )}
                           >
                             <Button
                               className="btn-simple btn-link p-1"
                               type="button"
                               variant="info"
                             >
-                              <i className="fas fa-edit"></i>
+                              <i className="fas fa-edit" />
                             </Button>
                           </OverlayTrigger>
                           <OverlayTrigger
@@ -477,7 +484,7 @@ function Dashboard() {
                               type="button"
                               variant="danger"
                             >
-                              <i className="fas fa-times"></i>
+                              <i className="fas fa-times" />
                             </Button>
                           </OverlayTrigger>
                         </td>
@@ -489,8 +496,8 @@ function Dashboard() {
                               <Form.Check.Input
                                 defaultChecked
                                 type="checkbox"
-                              ></Form.Check.Input>
-                              <span className="form-check-sign"></span>
+                              />
+                              <span className="form-check-sign" />
                             </Form.Check.Label>
                           </Form.Check>
                         </td>
@@ -500,18 +507,18 @@ function Dashboard() {
                         </td>
                         <td className="td-actions text-right">
                           <OverlayTrigger
-                            overlay={
+                            overlay={(
                               <Tooltip id="tooltip-422471719">
                                 Edit Task..
                               </Tooltip>
-                            }
+                            )}
                           >
                             <Button
                               className="btn-simple btn-link p-1"
                               type="button"
                               variant="info"
                             >
-                              <i className="fas fa-edit"></i>
+                              <i className="fas fa-edit" />
                             </Button>
                           </OverlayTrigger>
                           <OverlayTrigger
@@ -524,7 +531,7 @@ function Dashboard() {
                               type="button"
                               variant="danger"
                             >
-                              <i className="fas fa-times"></i>
+                              <i className="fas fa-times" />
                             </Button>
                           </OverlayTrigger>
                         </td>
@@ -536,26 +543,26 @@ function Dashboard() {
                               <Form.Check.Input
                                 defaultValue=""
                                 type="checkbox"
-                              ></Form.Check.Input>
-                              <span className="form-check-sign"></span>
+                              />
+                              <span className="form-check-sign" />
                             </Form.Check.Label>
                           </Form.Check>
                         </td>
-                        <td>Read "Following makes Medium better"</td>
+                        <td>Read &rdquo;Following makes Medium better&rdquo;</td>
                         <td className="td-actions text-right">
                           <OverlayTrigger
-                            overlay={
+                            overlay={(
                               <Tooltip id="tooltip-160575228">
                                 Edit Task..
                               </Tooltip>
-                            }
+                            )}
                           >
                             <Button
                               className="btn-simple btn-link p-1"
                               type="button"
                               variant="info"
                             >
-                              <i className="fas fa-edit"></i>
+                              <i className="fas fa-edit" />
                             </Button>
                           </OverlayTrigger>
                           <OverlayTrigger
@@ -568,7 +575,7 @@ function Dashboard() {
                               type="button"
                               variant="danger"
                             >
-                              <i className="fas fa-times"></i>
+                              <i className="fas fa-times" />
                             </Button>
                           </OverlayTrigger>
                         </td>
@@ -581,26 +588,26 @@ function Dashboard() {
                                 defaultValue=""
                                 disabled
                                 type="checkbox"
-                              ></Form.Check.Input>
-                              <span className="form-check-sign"></span>
+                              />
+                              <span className="form-check-sign" />
                             </Form.Check.Label>
                           </Form.Check>
                         </td>
                         <td>Unfollow 5 enemies from twitter</td>
                         <td className="td-actions text-right">
                           <OverlayTrigger
-                            overlay={
+                            overlay={(
                               <Tooltip id="tooltip-938342127">
                                 Edit Task..
                               </Tooltip>
-                            }
+                            )}
                           >
                             <Button
                               className="btn-simple btn-link p-1"
                               type="button"
                               variant="info"
                             >
-                              <i className="fas fa-edit"></i>
+                              <i className="fas fa-edit" />
                             </Button>
                           </OverlayTrigger>
                           <OverlayTrigger
@@ -613,7 +620,7 @@ function Dashboard() {
                               type="button"
                               variant="danger"
                             >
-                              <i className="fas fa-times"></i>
+                              <i className="fas fa-times" />
                             </Button>
                           </OverlayTrigger>
                         </td>
@@ -623,9 +630,9 @@ function Dashboard() {
                 </div>
               </Card.Body>
               <Card.Footer>
-                <hr></hr>
+                <hr />
                 <div className="stats">
-                  <i className="now-ui-icons loader_refresh spin"></i>
+                  <i className="now-ui-icons loader_refresh spin" />
                   Updated 3 minutes ago
                 </div>
               </Card.Footer>
