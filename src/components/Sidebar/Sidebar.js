@@ -46,8 +46,8 @@ function Sidebar({ color, image, routes }) {
               />
             </div>
           </a>
-          <a className="simple-text" href="https://www.facebook.com/passerelles.numeriques">
-            Create By Robusta Group
+          <a href="https://www.facebook.com/passerelles.numeriques">
+            Passerelles numériques
           </a>
         </div>
         <Nav>

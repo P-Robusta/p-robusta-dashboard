@@ -35,9 +35,7 @@ class Footer extends PureComponent {
               {' '}
               {new Date().getFullYear()}
               {' '}
-              <a href="http://www.creative-tim.com">Creative Tim</a>
-              , made with
-              love for a better web
+              <a href="https://www.facebook.com/passerelles.numeriques">Made by Robusta Team</a>
             </p>
           </nav>
         </Container>
