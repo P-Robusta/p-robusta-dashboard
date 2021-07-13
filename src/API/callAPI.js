@@ -26,12 +26,12 @@ export async function postLogin(data, isSave) {
   const method = 'POST';
   let token;
   // console.log(data);
-  console.log(data);
-  axios.post(`${API_URL}/login`, data).then((res) => {
-    if (res.success) {
-      console.log('Đăng nhập thành công');
-      token = res.token;
-      sessionStorage.setItem('__token__', token);
+  axios.post(`${API_URL}/login?email=${data.email}&password=${data.password}`).then((res) => {
+    console.log(res);
+    if (res.data.success) {
+      token = res.data.token;
+      console.log('token');
+      sessionStorage.setItem('__token __', token);
       if (isSave === true) localStorage.setItem('__token__', token);
       // return true;
     } else {
@@ -42,24 +42,4 @@ export async function postLogin(data, isSave) {
     .catch((err) => {
       console.log(err);
     });
-
-  // return axios({
-  //   method,
-  //   url: `${API_URL}/login`,
-  //   data: body,
-  // }).then((res) => {
-  //   if (res.success) {
-  //     console.log('Đăng nhập thành công');
-  //     token = res.token;
-  //     sessionStorage.setItem('__token__', token);
-  //     if (isSave === true) localStorage.setItem('__token__', token);
-  //     // return true;
-  //   } else {
-  //     console.log('Đăng nhập thất bại');
-  //   }
-  //   // return false;
-  // })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
 }
