@@ -7,7 +7,6 @@ export const getAuth = () => {
 
     if (authData) {
       results = JSON.stringify(authData);
-
       return {
         state: true,
         token: results
