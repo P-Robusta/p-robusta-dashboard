@@ -5,8 +5,6 @@
 /* eslint-disable jsx-a11y/iframe-has-title */
 import React from 'react';
 import '../assets/css/style.css';
-// react-bootstrap components
-// import { Badge, Button, Navbar, Nav, Container } from "react-bootstrap";
 
 function Maps() {
   const mapRef = React.useRef(null);

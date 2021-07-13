@@ -35,7 +35,7 @@ function Login() {
               />
               {errors.txtEmail && (
                 <strong>
-                  <span className="text-danger">Trường này phải là email</span>
+                  <span className="text-danger">This field must be email</span>
                 </strong>
               )}
             </div>
@@ -50,7 +50,7 @@ function Login() {
               />
               {errors.txtPasword && (
                 <strong>
-                  <span className="text-danger">Trường này không được để trống</span>
+                  <span className="text-danger">This field cannot be left blank</span>
                 </strong>
               )}
             </div>

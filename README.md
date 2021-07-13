@@ -1,74 +1,49 @@
 
+# p-robusta-dashboard
+
+The API for landing page of &lt;[Passerelles numériques Vietnam](https://www.passerellesnumeriques.org/)&gt;
+
+## Developers
+
+-   Cu Nguyen &lt;[cunguyen.dev@gmail.com](cunguyen.dev@gmail.com)&gt;
+
+-   Nguyen Ngoc Huy &lt;[huy.nguyen22@student.passerellesnumeriques.org](huy.nguyen22@student.passerellesnumeriques.org)&gt;
+
+-   Pham Anh Tuan &lt;[tuan.pham22@student.passerellesnumeriques.org](tuan.pham22@student.passerellesnumeriques.org)&gt;
+
+-   Le Thi Hong Hanh &lt;[hanh.le22@student.passerellesnumeriques.org](hanh.le22@student.passerellesnumeriques.org)&gt;
+
+-   Nguyen Thi Diem &lt;[diem.nguyen22@student.passerellesnumeriques.org](diem.nguyen22@student.passerellesnumeriques.org)&gt;
+
+## Requirements
+
+-   [Composer](https://getcomposer.org/download/) &gt;=2.1.3
+-   [Laravel](https://laravel.com/) &gt;=8.x
+
+## Tech stacks
+
+-   HTML/CSS/JavaScript
+-   SASS/SCSS
+-   ReactJs
+
+## Getting Started
+
+
 ```
-light-bootstrap-dashboard-react
-.
-├── CHANGELOG.md
-├── ISSUE_TEMPLATE.md
-├── LICENSE.md
-├── README.md
-├── gulpfile.js
-├── jsconfig.json
-├── package.json
-├── Documentation
-│   ├── css
-│   │   ├── demo.css
-│   │   ├── documentation.css
-│   │   └── light-bootstrap-dashboard.css
-│   ├── img
-│   └── tutorial-components.html
-├── public
-│   ├── favicon.ico
-│   ├── index.html
-│   └── manifest.json
-└── src
-    ├── index.js
-    ├── logo.svg
-    ├── routes.js
-    ├── assets
-    │   ├── css
-    │   │   ├── animate.min.css
-    │   │   ├── demo.css
-    │   │   ├── light-bootstrap-dashboard-react.css
-    │   │   ├── light-bootstrap-dashboard-react.css.map
-    │   │   └── light-bootstrap-dashboard-react.min.css
-    │   ├── fonts
-    │   │   ├── nucleo-icons.eot
-    │   │   ├── nucleo-icons.svg
-    │   │   ├── nucleo-icons.ttf
-    │   │   ├── nucleo-icons.woff
-    │   │   └── nucleo-icons.woff2
-    │   ├── img
-    │   │   └── faces
-    │   └── scss
-    │       ├── lbd
-    │       │   ├── mixins
-    │       │   └── plugins
-    │       ├── lbdr
-    │       │   ├── plugins
-    │       │   └── react-differences.scss
-    │       └── light-bootstrap-dashboard-react.scss
-    ├── layouts
-    │   └── Admin.js
-    ├── components
-    │   ├── FixedPlugin
-    │   │   └── FixedPlugin.js
-    │   ├── Footer
-    │   │   └── Footer.js
-    │   ├── Navbars
-    │   │   └── AdminNavbar.js
-    │   └── Sidebar
-    │       └── Sidebar.js
-    └── views
-        ├── Dashboard.js
-        ├── Icons.js
-        ├── Maps.js
-        ├── Notifications.js
-        ├── TableList.js
-        ├── Typography.js
-        ├── Upgrade.js
-        └── UserProfile.js
+How to run this project
+
+Step 1: clone this project from repository
+
+Step 2: cd to folder p-robusta-dashboard
+
+step 3: Run command line: npm install
 ```
 
+### Run this project
+
+```
+npm start
+```
 ## Browser Support
 
 At present, we officially aim to support the last two versions of the following browsers:

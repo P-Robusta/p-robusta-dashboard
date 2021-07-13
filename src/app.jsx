@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import {
   BrowserRouter, Route, Switch, Redirect
 } from 'react-router-dom';
+// eslint-disable-next-line import/no-unresolved
+import PrivateRoute from 'helpers/PrivateRoute';
 import { getAuth } from './helpers';
 
 // Components
@@ -27,7 +29,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+        <PrivateRoute path="/admin" render={(props) => <AdminLayout {...props} />} />
         <Route path="/login" render={() => <Login />} />
         <Redirect from="/" to="/login" />
       </Switch>
