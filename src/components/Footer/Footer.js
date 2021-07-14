@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/prefer-stateless-function */
 import React, { PureComponent } from 'react';
 import { Container } from 'react-bootstrap';

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 import Dashboard from 'views/Dashboard';
@@ -6,6 +7,8 @@ import TableList from 'views/TableList';
 import Typography from 'views/Typography';
 import Maps from 'views/Maps';
 import Notifications from 'views/Notifications';
+import Login from 'components/Login/Login';
+import AdminLayout from 'layouts/Admin';
 
 const dashboardRoutes = [
   {
@@ -52,4 +55,14 @@ const dashboardRoutes = [
   },
 ];
 
-export default dashboardRoutes;
+const indexRoutes = [
+  {
+    path: '/login',
+    component: Login
+  },
+  {
+    path: '/admin',
+    component: AdminLayout
+  }
+];
+export { dashboardRoutes, indexRoutes };

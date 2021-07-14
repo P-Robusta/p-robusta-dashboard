@@ -1,16 +1,19 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable func-names */
 /* eslint-disable react/no-this-in-sfc */
 /* eslint-disable no-undef */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import {
   Navbar, Container, Nav, Dropdown, Button
 } from 'react-bootstrap';
-import routes from '../../routes';
+// import { history } from 'history';
+import dashboardRoutes from '../../routes';
 
 function Header() {
+  const history = useHistory();
   const location = useLocation();
   const mobileSidebarToggle = (e) => {
     e.preventDefault();
@@ -25,13 +28,21 @@ function Header() {
   };
 
   const getBrandText = () => {
-    for (let i = 0; i < routes.length; i++) {
-      if (location.pathname.indexOf(routes[i].layout + routes[i].path) !== -1) {
-        return routes[i].name;
-      }
-    }
-    return 'Brand';
+    // // for (let i = 0; i < routes.length; i++) {
+    // //   if (location.pathname.indexOf(routes[i].layout + routes[i].path) !== -1) {
+    // //     return routes[i].name;
+    // //   }
+    // // }
+    // return 'Brand';
   };
+
+  const LogOut = () => {
+    console.log('logout');
+    localStorage.removeItem('__token__');
+    sessionStorage.removeItem('__token__');
+    history.push('/');
+  };
+
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -65,7 +76,6 @@ function Header() {
                 onClick={(e) => e.preventDefault()}
                 className="m-0"
               >
-                <i className="nc-icon nc-palette" />
                 <span className="d-lg-none ml-1">Dashboard</span>
               </Nav.Link>
             </Nav.Item>
@@ -78,8 +88,8 @@ function Header() {
                 className="m-0"
               >
                 <i className="nc-icon nc-planet" />
-                <span className="notification">5</span>
                 <span className="d-lg-none ml-1">Notification</span>
+                <span className="notification">10</span>
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item
@@ -184,8 +194,7 @@ function Header() {
             <Nav.Item>
               <Nav.Link
                 className="m-0"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
+                onClick={() => LogOut()}
               >
                 <span className="no-icon">Log out</span>
               </Nav.Link>

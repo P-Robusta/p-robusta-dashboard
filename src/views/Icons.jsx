@@ -1,6 +1,5 @@
 import React from 'react';
 
-// react-bootstrap components
 import {
   Card,
   Container,

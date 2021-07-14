@@ -12,7 +12,7 @@ import Footer from 'components/Footer/Footer';
 import Sidebar from 'components/Sidebar/Sidebar';
 import FixedPlugin from 'components/FixedPlugin/FixedPlugin';
 // import Login from 'components/Login/Login';
-import routes from 'routes.js';
+import { dashboardRoutes } from 'routes.js';
 
 import sidebarImage from 'assets/img/sidebar-3.jpg';
 
@@ -50,11 +50,11 @@ function Admin() {
   return (
     <>
       <div className="wrapper">
-        <Sidebar color={color} image={hasImage ? image : ''} routes={routes} />
+        <Sidebar color={color} image={hasImage ? image : ''} routes={dashboardRoutes} />
         <div className="main-panel" ref={mainPanel}>
           <AdminNavbar />
           <div className="content">
-            <Switch>{getRoutes(routes)}</Switch>
+            <Switch>{getRoutes(dashboardRoutes)}</Switch>
           </div>
           <Footer />
         </div>

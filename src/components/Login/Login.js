@@ -7,29 +7,46 @@
 import './style.css';
 // import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { postLogin } from 'API/callAPI';
+import { postLogin, callLogin } from 'API/callAPI';
+import { useHistory } from 'react-router-dom';
+import { getAuth } from 'helpers';
+import React, { useEffect } from 'react';
 // import React, { useState } from 'react';
-function Login() {
+function Login(props) {
   const {
     register, handleSubmit, formState: { errors }
   } = useForm();
+
+  const history = useHistory();
+
+  // useEffect(() =>
+  //   /**
+  //    * Check the authentication for the user
+  //    */
+  //  ,
+  // []);
+  // const auth = getAuth();
+  // if (auth.state) {
+  //   history.push('admin/dashboard');
+  // }
   // Xử lí đăng nhập
   const onSubmitLogin = (data) => {
     const check = document.getElementById('save_login');
-    // const email = data.txtEmail;
-    // const password = data.txtPasword;
-    console.log(data.password);
     const body = {
       email: data.email,
       password: data.password
     };
-    // if (check.checked) postLogin(email, password, true);
-    // else postLogin(email, password, false);
-    if (check.checked) postLogin(body, true);
-    else postLogin(body, false);
+    if (check.checked) {
+      callLogin(body, true).then(() => {
+        history.push('admin/dashboard');
+      });
+    } else {
+      callLogin(body, false).then(() => {
+        history.push('admin/dashboard');
+      });
+    }
   };
   // const onSubmitLogin = (data) => (console.log(data));
-
   return (
     <div>
       <div className="outer-login">

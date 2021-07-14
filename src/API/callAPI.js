@@ -43,3 +43,28 @@ export async function postLogin(data, isSave) {
       console.log(err);
     });
 }
+
+export async function callLogin(body, isSave) {
+  let token;
+  const method = 'POST';
+  return axios({
+    method,
+    url: `${API_URL}/login`,
+    headers: {
+      Authorization: 'application/json'
+    },
+    data: body,
+  }).then((res) => {
+    console.log(res);
+    if (res.data.success) {
+      token = res.data.data.token;
+      console.log(token);
+      sessionStorage.setItem('__token __', token);
+      if (isSave === true) localStorage.setItem('__token__', token);
+      return true;
+    }
+    return false;
+  }).catch((err) => {
+    console.log(err);
+  });
+}
