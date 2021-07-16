@@ -2,7 +2,7 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
 import {
-  Dropdown, Badge, Button, Form
+  Dropdown, Badge, Form
 } from 'react-bootstrap';
 
 import sideBarImage1 from 'assets/img/sidebar-1.jpg';
@@ -129,24 +129,6 @@ function FixedPlugin({
           <li className="button-container" />
           <li className="header-title" id="sharrreTitle">
             Thank you for your interest!
-          </li>
-          <li className="button-container mb-4">
-            <Button
-              className="btn-social btn-outline btn-round sharrre"
-              id="twitter"
-              variant="twitter"
-            >
-              <i className="fab fa-twitter" />
-              · 256
-            </Button>
-            <Button
-              className="btn-social btn-outline btn-round sharrre"
-              id="facebook"
-              variant="facebook"
-            >
-              <i className="fab fa-facebook-square" />
-              · 426
-            </Button>
           </li>
         </Dropdown.Menu>
       </Dropdown>

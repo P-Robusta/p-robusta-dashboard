@@ -19,17 +19,18 @@ function Login(props) {
 
   const history = useHistory();
 
-  // useEffect(() =>
-  //   /**
-  //    * Check the authentication for the user
-  //    */
-  //  ,
-  // []);
-  // const auth = getAuth();
-  // if (auth.state) {
-  //   history.push('admin/dashboard');
-  // }
-  // Xử lí đăng nhập
+  let isLogin = false;
+  let errLogin = false;
+  useEffect(() => {
+    /**
+     * Check the authentication for the user
+     */
+    const auth = getAuth();
+    if (auth.state) {
+      isLogin = true;
+      history.replace('/admin');
+    }
+  }, []);
   const onSubmitLogin = (data) => {
     const check = document.getElementById('save_login');
     const body = {
@@ -38,69 +39,72 @@ function Login(props) {
     };
     if (check.checked) {
       callLogin(body, true).then(() => {
-        history.push('admin/dashboard');
-      });
+        history.replace('/admin');
+      }).catch(() => { console.log('Thất bại'); errLogin = true; });
     } else {
       callLogin(body, false).then(() => {
-        history.push('admin/dashboard');
-      });
+        history.replace('/admin');
+      }).catch(() => { console.log('Thất bại'); errLogin = true; });
     }
   };
   // const onSubmitLogin = (data) => (console.log(data));
   return (
     <div>
-      <div className="outer-login">
-        <div className="inner-login">
-          <form method="POST" onSubmit={handleSubmit(onSubmitLogin)}>
-            <div className="logo-img-login">
-              <img
-                src="https://www.passerellesnumeriques.org/misc/logo-en.png"
-                alt="PNV-"
-              />
-            </div>
-            <h3>Log in</h3>
+      <div className="body-login">
+        <div className="outer-login">
+          <div className="inner-login">
+            <form method="POST" onSubmit={handleSubmit(onSubmitLogin)}>
+              <div className="logo-img-login">
+                <img
+                  src="https://www.passerellesnumeriques.org/misc/logo-en.png"
+                  alt="PNV-"
+                />
+              </div>
+              <h3>Log in</h3>
+              <div className="form-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  placeholder="Enter email"
+                  {...register('email', { required: true })}
+                />
+                {errors.email && (
+                  <strong>
+                    <span className="text-danger">This field must be email</span>
+                  </strong>
+                )}
+              </div>
 
-            <div className="form-group">
-              <label>Email</label>
-              <input
-                type="email"
-                className="form-control"
-                placeholder="Enter email"
-                {...register('email', { required: true })}
-              />
-              {errors.email && (
-                <strong>
-                  <span className="text-danger">This field must be email</span>
-                </strong>
-              )}
-            </div>
+              <div className="form-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  placeholder="Enter password"
+                  {...register('password', { required: true })}
+                />
+                {errors.password && (
+                  <strong>
+                    <span className="text-danger">This field cannot be left blank</span>
+                  </strong>
+                )}
+              </div>
 
-            <div className="form-group">
-              <label>Password</label>
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Enter password"
-                {...register('password', { required: true })}
-              />
-              {errors.password && (
-                <strong>
-                  <span className="text-danger">This field cannot be left blank</span>
-                </strong>
-              )}
-            </div>
+              <div className="form-group">
+                <input type="checkbox" id="save_login" />
+                &nbsp;
+                <label htmlFor="save_login"> Save login? </label>
+              </div>
+              <button type="submit" className="btn btn-login btn-lg btn-block">Sign in</button>
+              <br />
+              {errLogin ? <div className="alert alert-danger" role="alert">Login failed: Check your account and password</div> : <div> </div>}
+            </form>
 
-            <div className="form-group">
-              <input type="checkbox" id="save_login" />
-              &nbsp;
-              <label htmlFor="save_login"> Save login? </label>
-            </div>
-            <button type="submit" className="btn btn-login btn-lg btn-block">Sign in</button>
-            <br />
-          </form>
-
+          </div>
         </div>
       </div>
+
     </div>
   );
 }

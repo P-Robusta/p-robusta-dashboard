@@ -13,7 +13,7 @@ import {
   Col,
 } from 'react-bootstrap';
 
-function User() {
+function Profile() {
   return (
     <>
       <Container fluid>
@@ -21,7 +21,7 @@ function User() {
           <Col md="8">
             <Card>
               <Card.Header>
-                <Card.Title as="h4">Create Post</Card.Title>
+                <Card.Title as="h4">Profile Update</Card.Title>
               </Card.Header>
               <Card.Body>
                 <Form>
@@ -30,19 +30,9 @@ function User() {
                       <Form.Group>
                         <label>Company (disabled)</label>
                         <Form.Control
-                          defaultValue="Creative Code Inc."
+                          defaultValue="Passerelles numériques Viet Nam"
                           disabled
                           placeholder="Company"
-                          type="text"
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col className="px-1" md="3">
-                      <Form.Group>
-                        <label>Username</label>
-                        <Form.Control
-                          defaultValue="michael23"
-                          placeholder="Username"
                           type="text"
                         />
                       </Form.Group>
@@ -54,39 +44,16 @@ function User() {
                         </label>
                         <Form.Control
                           placeholder="Email"
+                          defaultValue="info.vietnam@passerellesnumeriques.org"
                           type="email"
                         />
                       </Form.Group>
                     </Col>
-                  </Row>
-                  <Row>
-                    <Col className="pr-1" md="6">
-                      <Form.Group>
-                        <label>First Name</label>
-                        <Form.Control
-                          defaultValue="Mike"
-                          placeholder="Company"
-                          type="text"
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="6">
-                      <Form.Group>
-                        <label>Last Name</label>
-                        <Form.Control
-                          defaultValue="Andrew"
-                          placeholder="Last Name"
-                          type="text"
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row>
                     <Col md="12">
                       <Form.Group>
                         <label>Address</label>
                         <Form.Control
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                          defaultValue="99 Tô Hiến Thành, Phước Mỹ, Sơn Trà"
                           placeholder="Home Address"
                           type="text"
                         />
@@ -98,7 +65,7 @@ function User() {
                       <Form.Group>
                         <label>City</label>
                         <Form.Control
-                          defaultValue="Mike"
+                          defaultValue="Đà Nắng"
                           placeholder="City"
                           type="text"
                         />
@@ -108,18 +75,9 @@ function User() {
                       <Form.Group>
                         <label>Country</label>
                         <Form.Control
-                          defaultValue="Andrew"
+                          defaultValue="Việt Nam"
                           placeholder="Country"
                           type="text"
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label>Postal Code</label>
-                        <Form.Control
-                          placeholder="ZIP Code"
-                          type="number"
                         />
                       </Form.Group>
                     </Col>
@@ -130,8 +88,7 @@ function User() {
                         <label>About Me</label>
                         <Form.Control
                           cols="80"
-                          defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                          that two seat Lambo."
+                          defaultValue="Passerelles numériques is a French NGO created in 2005 and operating in Cambodia, the Philippines and Vietnam"
                           placeholder="Here can be your description"
                           rows="4"
                           as="textarea"
@@ -164,31 +121,22 @@ function User() {
               </div>
               <Card.Body>
                 <div className="author">
-                  <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                  <a href="https://www.facebook.com/passerelles.numeriques">
                     <img
                       alt="..."
                       className="avatar border-gray"
-                      src={require('assets/img/faces/face-3.jpg').default}
+                      src={require('assets/img/faces/pn-logo.png').default}
                     />
-                    <h5 className="title">Mike Andrew</h5>
+                    <h5 className="title">Passerelles numériques</h5>
                   </a>
-                  <p className="description">michael24</p>
+                  <p className="description">A Gateway for Life</p>
+                  <p>Passerelles numériques is a French NGO created in 2005 and operating in Cambodia, the Philippines and Vietnam</p>
                 </div>
-                <p className="description text-center">
-                  Lamborghini Mercy
-                  {' '}
-                  <br />
-                  Your chick she so thirsty
-                  {' '}
-                  <br />
-                  Im in that two seat Lambo
-                </p>
               </Card.Body>
               <hr />
               <div className="button-container mr-auto ml-auto">
                 <Button
                   className="btn-simple btn-icon"
-                  href="#pablo"
                   onClick={(e) => e.preventDefault()}
                   variant="link"
                 >
@@ -196,15 +144,6 @@ function User() {
                 </Button>
                 <Button
                   className="btn-simple btn-icon"
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  variant="link"
-                >
-                  <i className="fab fa-twitter" />
-                </Button>
-                <Button
-                  className="btn-simple btn-icon"
-                  href="#pablo"
                   onClick={(e) => e.preventDefault()}
                   variant="link"
                 >
@@ -219,4 +158,4 @@ function User() {
   );
 }
 
-export default User;
+export default Profile;

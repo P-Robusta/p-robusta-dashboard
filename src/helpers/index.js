@@ -2,19 +2,22 @@
 /* eslint-disable import/prefer-default-export */
 export const getAuth = () => {
   let results = '';
+  let isSession = '';
+  let authData = '';
   try {
-    const authData = localStorage.getItem('__token__');
-    const isSession = sessionStorage.getItem('__token__');
-    if (authData) {
-      sessionStorage.setItem('__token__', results);
-      results = JSON.stringify(sessionStorage.getItem('__token__'));
+    isSession = sessionStorage.getItem('__token __');
+    authData = localStorage.getItem('__token__');
+    if (isSession) {
+      results = isSession;
       return {
         state: true,
         token: results
       };
     } else
-    if (isSession) {
-      results = JSON.stringify(isSession);
+    if (authData) {
+      const data = authData;
+      sessionStorage.setItem('__token__', data);
+      results = sessionStorage.getItem('__token__');
       return {
         state: true,
         token: results

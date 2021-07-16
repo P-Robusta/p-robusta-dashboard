@@ -36,12 +36,12 @@ function Header() {
     // return 'Brand';
   };
 
-  const LogOut = () => {
+  async function LogOut() {
     console.log('logout');
-    localStorage.removeItem('__token__');
-    sessionStorage.removeItem('__token__');
-    history.push('/');
-  };
+    await localStorage.removeItem('__token__');
+    await sessionStorage.removeItem('__token__');
+    history.replace('/login');
+  }
 
   return (
     <Navbar bg="light" expand="lg">
@@ -87,9 +87,9 @@ function Header() {
                 variant="default"
                 className="m-0"
               >
-                <i className="nc-icon nc-planet" />
-                <span className="d-lg-none ml-1">Notification</span>
+                <i className="nc-icon nc-bell-55" />
                 <span className="notification">10</span>
+                <span className="d-lg ml-1">Notification</span>
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item

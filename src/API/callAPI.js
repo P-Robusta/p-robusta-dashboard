@@ -5,14 +5,14 @@
 // eslint-disable-next-line import/no-unresolved
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api';
-
+// const API_URL =
+axios.defaults.baseURL = 'http://localhost:8000/api';
 // call API
 export async function callAPI(endpoint, method = 'GET', body) {
   let token;
   return axios({
     method,
-    url: `${API_URL}/${endpoint}`,
+    url: `${endpoint}`,
     headers: { Authorization: `Bearer ${token}` },
     data: body,
   }).catch((err) => {
@@ -22,11 +22,11 @@ export async function callAPI(endpoint, method = 'GET', body) {
 
 // Login
 export async function postLogin(data, isSave) {
-  // console.log(`${API_URL}/login`);
+  // console.log(`login`);
   const method = 'POST';
   let token;
   // console.log(data);
-  axios.post(`${API_URL}/login?email=${data.email}&password=${data.password}`).then((res) => {
+  axios.post(`login?email=${data.email}&password=${data.password}`).then((res) => {
     console.log(res);
     if (res.data.success) {
       token = res.data.token;
@@ -49,22 +49,18 @@ export async function callLogin(body, isSave) {
   const method = 'POST';
   return axios({
     method,
-    url: `${API_URL}/login`,
+    url: 'login',
     headers: {
       Authorization: 'application/json'
     },
     data: body,
   }).then((res) => {
-    console.log(res);
     if (res.data.success) {
       token = res.data.data.token;
-      console.log(token);
-      sessionStorage.setItem('__token __', token);
+      sessionStorage.setItem('__token__', token);
       if (isSave === true) localStorage.setItem('__token__', token);
       return true;
     }
     return false;
-  }).catch((err) => {
-    console.log(err);
-  });
+  }).catch((err) => false);
 }

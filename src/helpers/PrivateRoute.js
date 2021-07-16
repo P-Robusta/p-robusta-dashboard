@@ -1,19 +1,28 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable react/prop-types */
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import { getAuth } from './index';
+// /* eslint-disable import/no-unresolved */
+// /* eslint-disable react/prop-types */
+// import React, { useEffect } from 'react';
+// import { Route, Redirect } from 'react-router-dom';
 
-const isLogin = getAuth();
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => (
-      isLogin.state === true
-        ? <Component {...props} />
-        : <Redirect to="/login" />
-    )}
-  />
-);
+// // useEffect(() => {
+// //   /**
+// //    * Check the authentication for the user
+// //    */
+// //   const auth = getAuth();
+// //   console.log(auth);
+// //   if (auth.state) {
+// //     isLogin = true;
+// //     console.log(isLogin);
+// //   }
+// // }, []);
+// const PrivateRoute = ({ component: Component, ...rest }) => (
+//   <Route
+//     {...rest}
+//     render={(props) => (
+//       isLogin
+//         ? <Component {...props} />
+//         : <Redirect to="/login" />
+//     )}
+//   />
+// );
 
-export default PrivateRoute;
+// export default PrivateRoute;

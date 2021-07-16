@@ -36,7 +36,7 @@ function Sidebar({ color, image, routes }) {
       <div className="sidebar-wrapper">
         <div className="logo d-flex align-items-center justify-content-start">
           <a
-            href="hhttps://www.facebook.com/passerelles.numeriques"
+            href="https://www.facebook.com/passerelles.numeriques"
             className="simple-text logo-mini mx-1"
           >
             <div className="logo-img">

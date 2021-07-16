@@ -8,33 +8,34 @@ import {
 import PrivateRoute from 'helpers/PrivateRoute';
 import NotFound from 'components/Page/NotFound';
 import { getAuth } from './helpers';
-
 // Components
 import Login from './components/Login/Login';
-import AdminLayout from './layouts/Admin';
+import Admin from './layouts/Admin';
 
-let isLogin;
 const App = () => {
+  let isLogin = false;
   useEffect(() => {
     /**
      * Check the authentication for the user
      */
     const auth = getAuth();
+    console.log(auth);
     if (auth.state) {
       isLogin = true;
+      console.log(isLogin);
     }
   }, []);
   /* <Route path="/admin" render={isLogin ? (props) => <AdminLayout {...props} /> : <Redirect to="/login" />} /> */
   return (
     <BrowserRouter>
       <Switch>
-        <PrivateRoute path="/admin" component={AdminLayout} />
-        <Route path="/login" render={() => <Login />} />
+        {/* <PrivateRoute path="/admin" component={Admin} /> */}
+        <Route path="/admin" render={() => <Admin />} />
+        {/* <Route path="/admin" render={() => (isLogin ? <Redirect to="/admin" /> : <Redirect to="/login" />)} /> */}
+        <Route path="/login" render={() => <Login />} exact />
         <Route path="/404" render={() => <NotFound />} />
-        <Route path="/">
-          {isLogin === true ? <Redirect to="/admin/dashboard" /> : <Redirect to="/login" />}
-        </Route>
-        <Route path="*" render={() => <NotFound />} />
+        <Route path="/" render={() => (isLogin ? <Redirect to="/admin" /> : <Redirect to="/login" />)} />
+        <Route render={() => <NotFound />} />
       </Switch>
     </BrowserRouter>
   );
