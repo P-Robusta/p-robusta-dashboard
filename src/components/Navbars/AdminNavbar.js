@@ -1,16 +1,17 @@
+/* eslint-disable consistent-return */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable func-names */
 /* eslint-disable react/no-this-in-sfc */
 /* eslint-disable no-undef */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useHistory, NavLink } from 'react-router-dom';
 import {
   Navbar, Container, Nav, Dropdown, Button
 } from 'react-bootstrap';
-// import { history } from 'history';
-import dashboardRoutes from '../../routes';
+import { getNotification } from 'API/callAPI';
 
 function Header() {
   const history = useHistory();
@@ -26,16 +27,29 @@ function Header() {
     };
     document.body.appendChild(node);
   };
+  const [listNotice, setNotice] = useState();
 
-  const getBrandText = () => {
-    // // for (let i = 0; i < routes.length; i++) {
-    // //   if (location.pathname.indexOf(routes[i].layout + routes[i].path) !== -1) {
-    // //     return routes[i].name;
-    // //   }
-    // // }
-    // return 'Brand';
+  const showNotice = (list = []) => {
+    if (list.length > 0) {
+      return list.map((prop, key) => (
+        <Dropdown.Item>
+          <div className="text-warning">{prop.title}</div>
+        </Dropdown.Item>
+      ));
+    }
+    return (
+      <Dropdown.Item>
+        {' '}
+        <div className="text-warning">No announcements</div>
+      </Dropdown.Item>
+    );
   };
 
+  useEffect(() => {
+    getNotification().then((data) => {
+      setNotice(data);
+    });
+  }, []);
   async function LogOut() {
     console.log('logout');
     await localStorage.removeItem('__token__');
@@ -58,9 +72,7 @@ function Header() {
             href="#home"
             onClick={(e) => e.preventDefault()}
             className="mr-2"
-          >
-            {getBrandText()}
-          </Navbar.Brand>
+          />
         </div>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="mr-2">
           <span className="navbar-toggler-bar burger-lines" />
@@ -88,40 +100,11 @@ function Header() {
                 className="m-0"
               >
                 <i className="nc-icon nc-bell-55" />
-                <span className="notification">10</span>
+                <span className="notification">{listNotice && listNotice.length}</span>
                 <span className="d-lg ml-1">Notification</span>
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Notification 1
-                </Dropdown.Item>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Notification 2
-                </Dropdown.Item>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Notification 3
-                </Dropdown.Item>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Notification 4
-                </Dropdown.Item>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Another notification
-                </Dropdown.Item>
+                {showNotice(listNotice)}
               </Dropdown.Menu>
             </Dropdown>
             <Nav.Item>
@@ -136,61 +119,6 @@ function Header() {
             </Nav.Item>
           </Nav>
           <Nav className="ml-auto" navbar>
-            <Nav.Item>
-              <Nav.Link
-                className="m-0"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="no-icon">Account</span>
-              </Nav.Link>
-            </Nav.Item>
-            <Dropdown as={Nav.Item}>
-              <Dropdown.Toggle
-                aria-expanded={false}
-                aria-haspopup
-                as={Nav.Link}
-                data-toggle="dropdown"
-                id="navbarDropdownMenuLink"
-                variant="default"
-                className="m-0"
-              >
-                <span className="no-icon">Dropdown</span>
-              </Dropdown.Toggle>
-              <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Action
-                </Dropdown.Item>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Another action
-                </Dropdown.Item>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Something
-                </Dropdown.Item>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Something else here
-                </Dropdown.Item>
-                <div className="divider" />
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Separated link
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
             <Nav.Item>
               <Nav.Link
                 className="m-0"

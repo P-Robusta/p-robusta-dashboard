@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable import/no-unresolved */
 import React from 'react';
 import NotificationAlert from 'react-notification-alert';
@@ -10,30 +11,30 @@ import {
   Row,
   Col
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { routeTable } from 'routes.js';
+
 // Accordion,
 function TableList() {
   const notificationAlertRef = React.useRef(null);
-  const notify = (place = 'tr') => {
-    const type = 'warning';
-    let options = {};
-    options = {
-      place,
-      message: (
-        <div>
-          <div>
-            <b>This table says: </b>
-            {' '}
-            This function is incomplete
-          </div>
-        </div>
-      ),
-      type,
-      icon: 'nc-icon nc-tag-content',
-      autoDismiss: 5,
-    };
-    notificationAlertRef.current.notificationAlert(options);
-  };
+  const listTable = (routes) => routes.map((prop, key) => (
+    <tr key={key}>
+      <td>{key + 1}</td>
+      <td>{prop.name}</td>
+      <td>
+        <NavLink
+          to={prop.layout + prop.path}
+          className="nav-link"
+          activeClassName="active"
+        >
+          {' '}
+          Manage This Table
+        </NavLink>
+      </td>
+
+    </tr>
+  ));
   return (
     <>
       <div className="rna-container">
@@ -45,6 +46,11 @@ function TableList() {
             <Card className="strpied-tabled-with-hover">
               <Card.Header>
                 <Card.Title as="h4">List Of Table In Database</Card.Title>
+                <small>
+                  <NavLink to="/admin">... admin </NavLink>
+                  /
+                  <NavLink to="/admin/table"> list table </NavLink>
+                </small>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
                 <Table className="table-hover">
@@ -56,57 +62,8 @@ function TableList() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Banner</td>
-                      <td>
-                        <Link to="#" onClick={() => notify()} variant="default"> Manage This Table</Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Categories</td>
-                      <td>
-                        <Link to="#" onClick={() => notify()} variant="default"> Manage This Table</Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Join Us</td>
-                      <td>
-                        <Link to="#" onClick={() => notify()} variant="default"> Manage This Table</Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>Notification</td>
-                      <td>
-                        <Link to="#" onClick={() => notify()} variant="default"> Manage This Table</Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>Number Overviews</td>
-                      <td>
-                        <Link to="#" onClick={() => notify()} variant="default"> Manage This Table</Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td>Posts</td>
-                      <td>
-                        <Link to="#" onClick={() => notify()} variant="default"> Manage This Table</Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>7</td>
-                      <td>Staff</td>
-                      <td>
-                        <Link to="#"> Manage This Table</Link>
-                      </td>
-                    </tr>
+                    { listTable(routeTable) }
                   </tbody>
-
                 </Table>
               </Card.Body>
             </Card>

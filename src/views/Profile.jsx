@@ -21,7 +21,7 @@ function Profile() {
           <Col md="8">
             <Card>
               <Card.Header>
-                <Card.Title as="h4">Profile Update</Card.Title>
+                <Card.Title as="h4">Profile</Card.Title>
               </Card.Header>
               <Card.Body>
                 <Form>

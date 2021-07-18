@@ -1,3 +1,4 @@
+/* eslint-disable function-paren-newline */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable linebreak-style */
@@ -8,10 +9,10 @@ import './style.css';
 // import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { postLogin, callLogin } from 'API/callAPI';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { getAuth } from 'helpers';
 import React, { useEffect } from 'react';
-// import React, { useState } from 'react';
+
 function Login(props) {
   const {
     register, handleSubmit, formState: { errors }
@@ -19,18 +20,13 @@ function Login(props) {
 
   const history = useHistory();
 
-  let isLogin = false;
   let errLogin = false;
+
   useEffect(() => {
-    /**
-     * Check the authentication for the user
-     */
-    const auth = getAuth();
-    if (auth.state) {
-      isLogin = true;
-      history.replace('/admin');
-    }
+    // if(sessionStorage.getItem())
+    sessionStorage.removeItem('__token__');
   }, []);
+
   const onSubmitLogin = (data) => {
     const check = document.getElementById('save_login');
     const body = {
@@ -40,14 +36,20 @@ function Login(props) {
     if (check.checked) {
       callLogin(body, true).then(() => {
         history.replace('/admin');
-      }).catch(() => { console.log('Thất bại'); errLogin = true; });
+        window.location.reload();
+        // <Redirect to="/admin" />
+      // window.location.assign('/admin');
+      }).catch(() => { errLogin = true; });
     } else {
       callLogin(body, false).then(() => {
         history.replace('/admin');
+        window.location.reload();
+        // <Redirect to="/admin" />
+        // window.location.assign('/admin');
+        // history.replace('/admin');
       }).catch(() => { console.log('Thất bại'); errLogin = true; });
     }
   };
-  // const onSubmitLogin = (data) => (console.log(data));
   return (
     <div>
       <div className="body-login">

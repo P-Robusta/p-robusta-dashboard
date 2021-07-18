@@ -15,6 +15,10 @@ import FixedPlugin from 'components/FixedPlugin/FixedPlugin';
 import { dashboardRoutes } from 'routes.js';
 
 import sidebarImage from 'assets/img/sidebar-3.jpg';
+// import { listTable } from 'routes';
+// import { Redirect } from 'react-router-dom';
+// import NotFound from '../components/Page/NotFound';
+import Dashboard from 'views/Dashboard';
 
 function Admin() {
   const [image, setImage] = React.useState(sidebarImage);
@@ -29,6 +33,7 @@ function Admin() {
           path={prop.layout + prop.path}
           render={(props) => <prop.component {...props} />}
           key={key}
+          exact
         />
       );
     }
@@ -54,7 +59,13 @@ function Admin() {
         <div className="main-panel" ref={mainPanel}>
           <AdminNavbar />
           <div className="content">
-            <Switch>{getRoutes(dashboardRoutes)}</Switch>
+            <Switch>
+              <Route path="/admin" render={() => <Dashboard />} exact />
+              <Route>
+                {getRoutes(dashboardRoutes)}
+              </Route>
+              <Route path="/admin/*" render={() => <b> Not Found This Request</b>} />
+            </Switch>
           </div>
           <Footer />
         </div>

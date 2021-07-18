@@ -10,6 +10,8 @@ import Icons from 'views/Icons';
 import Profile from 'views/Profile';
 import Admin from 'layouts/Admin';
 import CreatePost from 'views/CreatePost';
+import Banner from './components/TableList/Banner';
+import NumberOverview from './components/TableList/NumberOverview';
 
 const dashboardRoutes = [
   {
@@ -21,8 +23,8 @@ const dashboardRoutes = [
   },
   {
     path: '/profile',
-    name: 'Profile Update',
-    icon: 'nc-icon nc-circle-09',
+    name: 'Profile',
+    icon: 'nc-icon nc-attach-87',
     component: Profile,
     layout: '/admin',
   },
@@ -31,13 +33,6 @@ const dashboardRoutes = [
     name: 'Create Post',
     icon: 'nc-icon nc-album-2',
     component: CreatePost,
-    layout: '/admin',
-  },
-  {
-    path: '/icon',
-    name: 'Choose Icon',
-    icon: 'nc-icon nc-circle-09',
-    component: Icons,
     layout: '/admin',
   },
   {
@@ -54,6 +49,44 @@ const dashboardRoutes = [
     component: Notifications,
     layout: '/admin',
   },
+  {
+    path: '/icon',
+    name: 'Choose Icon',
+    icon: 'nc-icon nc-satisfied',
+    component: Icons,
+    layout: '/admin',
+  },
+  {
+    path: '/table/banner',
+    name: 'Banner',
+    middle_path: 'table',
+    component: Banner,
+    layout: '/admin',
+  },
+  {
+    path: '/table/number_overwiew',
+    name: 'Number Overview',
+    middle_path: 'table',
+    component: NumberOverview,
+    layout: '/admin',
+  }
+];
+
+const routeTable = [
+  {
+    path: '/table/banner',
+    name: 'Banner',
+    middle_path: 'table',
+    component: Banner,
+    layout: '/admin',
+  },
+  {
+    path: '/table/number_overwiew',
+    name: 'Number Overview',
+    middle_path: 'table',
+    component: NumberOverview,
+    layout: '/admin',
+  }
 ];
 
 const indexRoutes = [
@@ -70,4 +103,5 @@ const indexRoutes = [
     layout: '/admin',
   }
 ];
-export { dashboardRoutes, indexRoutes };
+
+export { dashboardRoutes, indexRoutes, routeTable };

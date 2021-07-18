@@ -6,44 +6,21 @@
 import axios from 'axios';
 
 // const API_URL =
-axios.defaults.baseURL = 'http://localhost:8000/api';
+// axios.defaults.baseURL = 'https://passerellesnumeriques-robusta.herokuapp.com/api';
+axios.defaults.baseURL = 'http://127.0.0.1:8000/api';
 // call API
-export async function callAPI(endpoint, method = 'GET', body) {
-  let token;
+export async function callAPI(endpoint, method = 'GET') {
+  const token = sessionStorage.getItem('__token__');
   return axios({
     method,
     url: `${endpoint}`,
     headers: { Authorization: `Bearer ${token}` },
-    data: body,
   }).catch((err) => {
     console.log(err);
   });
 }
 
 // Login
-export async function postLogin(data, isSave) {
-  // console.log(`login`);
-  const method = 'POST';
-  let token;
-  // console.log(data);
-  axios.post(`login?email=${data.email}&password=${data.password}`).then((res) => {
-    console.log(res);
-    if (res.data.success) {
-      token = res.data.token;
-      console.log('token');
-      sessionStorage.setItem('__token __', token);
-      if (isSave === true) localStorage.setItem('__token__', token);
-      // return true;
-    } else {
-      console.log('Đăng nhập thất bại');
-    }
-    // return false;
-  })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
 export async function callLogin(body, isSave) {
   let token;
   const method = 'POST';
@@ -63,4 +40,39 @@ export async function callLogin(body, isSave) {
     }
     return false;
   }).catch((err) => false);
+}
+// Banner
+export async function getBanner(endpoint = 'banners', method = 'GET') {
+  const token = sessionStorage.getItem('__token__');
+  return axios({
+    method,
+    url: `${endpoint}`,
+    headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
+  }).then((res) => res.data.data).catch((err) => false);
+}
+export async function postBanner(body) {
+  const token = sessionStorage.getItem('__token__');
+  const method = 'POST';
+  return axios({
+    method,
+    url: 'banners',
+    headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
+    data: body,
+  }).then((res) => {
+    console.log(res.data);
+    return res.data.data;
+  }).catch((err) => {
+    console.log(err);
+    return 'Retrieving data failed!';
+  });
+}
+
+// Notifications
+export async function getNotification(endpoint = 'notifications', method = 'GET') {
+  const token = sessionStorage.getItem('__token__');
+  return axios({
+    method,
+    url: `${endpoint}`,
+    headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
+  }).then((res) => res.data.data).catch((err) => false);
 }
