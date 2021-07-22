@@ -88,42 +88,26 @@ export default function UpdatePartner() {
   const submitPost = async (data) => {
     setLoad(true);
     const formData = new URLSearchParams();
-    // eslint-disable-next-line camelcase
-    if (data.title === '' || data.title === oldData.title) {
-      console.log('title is incorrect');
-    } else {
-      formData.append('title', data.title);
-    }
-    if (data.short_title === '' || data.short_title === oldData.short_title) {
-      console.log('short_title is incorrect');
-    } else {
-      formData.append('short_title', data.short_title);
-    }
-    if (data.summary) {
-      formData.append('summary', data.summary);
-    }
     if (Ckdata) {
-      formData.append('content', Ckdata);
-    }
-    if (data.text_for_button) {
-      formData.append('text_for_button', data.text_for_button);
-    }
-    if (data.id_category) {
-      formData.append('id_category', data.id_category);
-    }
-    if (data.time_event) {
-      formData.append('time_event', data.time_event);
+      formData.append('text', Ckdata);
     }
 
     let message = {
-      mes: 'Error: Editing Post failed! (title or short title is unique)',
+      mes: 'Error: Update Partner Failed!',
       status: 'danger'
     };
-    const image = data.image_cover[0];
+    const image = data.logo[0];
+    const imagePNV = data.imgPNV[0];
     await uploadImage(image).then((res) => {
       if (res) {
-        setNewImg(res);
-        formData.append('image_cover', res);
+        formData.append('image', res);
+      }
+    }).catch(() => {
+      console.log('no image update');
+    });
+    await uploadImage(imagePNV).then((res) => {
+      if (res) {
+        formData.append('imgPNV', res);
       }
     }).catch(() => {
       console.log('no image update');
@@ -132,7 +116,7 @@ export default function UpdatePartner() {
     APIput(endpoint, formData).then((res) => {
       if (res === false) {
         notify(message.mes, message.status);
-        notice('Error', 'Editing post failed. Maybe the title already exists!');
+        notice('Error', 'Update partner failed -> API not support PUT route!');
         setLoad(false);
       } else {
         message = {
@@ -175,7 +159,7 @@ export default function UpdatePartner() {
                           type="file"
                           className="form-control"
                           placeholder="Enter short title"
-                          {...register('image_cover')}
+                          {...register('imgPNV')}
                         />
                       </div>
                     </div>
@@ -187,7 +171,7 @@ export default function UpdatePartner() {
                           type="file"
                           className="form-control"
                           placeholder="Enter short title"
-                          {...register('image_cover')}
+                          {...register('logo')}
                         />
                       </div>
                     </div>

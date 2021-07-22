@@ -57,7 +57,7 @@ const dashboardRoutes = [
   },
   {
     path: '/donors',
-    name: 'Donors',
+    name: 'Donations',
     icon: 'nc-icon nc-chart-bar-32',
     component: Donors,
     layout: '/admin',
