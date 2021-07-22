@@ -1,5 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import { Helmet } from 'react-helmet';
+import { NavLink } from 'react-router-dom';
 
 const NotFound = () => (
   <>
@@ -8,7 +9,11 @@ const NotFound = () => (
     </Helmet>
     <div className="outer-login">
       <div className="inner-login">
-        <h3>Not Found this Page</h3>
+        <h3 className="center">
+          Not Found this Page
+          <br />
+          <small className="text-right"><NavLink to="/">Go to the homepage? </NavLink></small>
+        </h3>
       </div>
     </div>
 

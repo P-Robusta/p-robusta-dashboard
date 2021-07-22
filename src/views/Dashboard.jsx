@@ -1,19 +1,25 @@
-import React from 'react';
+/* eslint-disable global-require */
+/* eslint-disable import/no-unresolved */
+import React, { useEffect, useState } from 'react';
 import ChartistGraph from 'react-chartist';
-// react-bootstrap components
 import {
-  Button,
   Card,
-  Table,
   Container,
   Row,
   Col,
-  Form,
-  OverlayTrigger,
-  Tooltip,
+  // eslint-disable-next-line no-unused-vars
+  Button
 } from 'react-bootstrap';
+import { callAPI } from 'API/callAPI';
 
 function Dashboard() {
+  const [listOverview, setList] = useState();
+
+  useEffect(() => {
+    callAPI('number_overviews').then((data) => {
+      setList(data);
+    });
+  }, []);
   return (
     <>
       <Container fluid>
@@ -24,13 +30,17 @@ function Dashboard() {
                 <Row>
                   <Col xs="5">
                     <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-chart text-warning" />
+                      <i className="nc-icon nc-badge text-warning" />
                     </div>
                   </Col>
                   <Col xs="7">
                     <div className="numbers">
-                      <p className="card-category">Number</p>
-                      <Card.Title as="h4">150GB</Card.Title>
+                      <p className="card-category">Number Of Current Student</p>
+                      <Card.Title as="h4">
+                        {listOverview && listOverview.current_students}
+                        {' '}
+                        students
+                      </Card.Title>
                     </div>
                   </Col>
                 </Row>
@@ -50,13 +60,13 @@ function Dashboard() {
                 <Row>
                   <Col xs="5">
                     <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-light-3 text-success" />
+                      <i className="nc-icon nc-badge text-success" />
                     </div>
                   </Col>
                   <Col xs="7">
                     <div className="numbers">
-                      <p className="card-category">Revenue</p>
-                      <Card.Title as="h4">$ 1,345</Card.Title>
+                      <p className="card-category">Number Of Current Alumni</p>
+                      <Card.Title as="h4">{listOverview && listOverview.alumni}</Card.Title>
                     </div>
                   </Col>
                 </Row>
@@ -64,8 +74,8 @@ function Dashboard() {
               <Card.Footer>
                 <hr />
                 <div className="stats">
-                  <i className="far fa-calendar-alt mr-1" />
-                  Last day
+                  <i className="fas fa-redo mr-1" />
+                  Update Now
                 </div>
               </Card.Footer>
             </Card>
@@ -76,13 +86,16 @@ function Dashboard() {
                 <Row>
                   <Col xs="5">
                     <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-vector text-danger" />
+                      <i className="nc-icon nc-chart-pie-35 text-danger" />
                     </div>
                   </Col>
                   <Col xs="7">
                     <div className="numbers">
-                      <p className="card-category">Errors</p>
-                      <Card.Title as="h4">23</Card.Title>
+                      <p className="card-category">Rate of getting a job</p>
+                      <Card.Title as="h4">
+                        {listOverview && listOverview.percent_get_job}
+                        %
+                      </Card.Title>
                     </div>
                   </Col>
                 </Row>
@@ -90,8 +103,8 @@ function Dashboard() {
               <Card.Footer>
                 <hr />
                 <div className="stats">
-                  <i className="far fa-clock-o mr-1" />
-                  In the last hour
+                  <i className="fas fa-redo mr-1" />
+                  Update Now
                 </div>
               </Card.Footer>
             </Card>
@@ -102,13 +115,17 @@ function Dashboard() {
                 <Row>
                   <Col xs="5">
                     <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-favourite-28 text-primary" />
+                      <i className="nc-icon nc-vector text-primary" />
                     </div>
                   </Col>
                   <Col xs="7">
                     <div className="numbers">
-                      <p className="card-category">Followers</p>
-                      <Card.Title as="h4">+45K</Card.Title>
+                      <p className="card-category">Total of student</p>
+                      <Card.Title as="h4">
+                        {listOverview && listOverview.total_students}
+                        {' '}
+                        students
+                      </Card.Title>
                     </div>
                   </Col>
                 </Row>
@@ -124,36 +141,40 @@ function Dashboard() {
           </Col>
         </Row>
         <Row>
-          <Col md="8">
+          <Col md="9">
             <Card>
               <Card.Header>
-                <Card.Title as="h4">Users Behavior</Card.Title>
-                <p className="card-category">24 Hours performance</p>
+                <Card.Title as="h4">Donation</Card.Title>
+                <p className="card-category">12 months performance</p>
               </Card.Header>
               <Card.Body>
                 <div className="ct-chart" id="chartHours">
                   <ChartistGraph
                     data={{
                       labels: [
-                        '9:00AM',
-                        '12:00AM',
-                        '3:00PM',
-                        '6:00PM',
-                        '9:00PM',
-                        '12:00PM',
-                        '3:00AM',
-                        '6:00AM',
+                        'Jan',
+                        'Feb',
+                        'Mar',
+                        'Apr',
+                        'May',
+                        'June',
+                        'Jul',
+                        'Aug',
+                        'Sep',
+                        'Oct',
+                        'Nov',
+                        'Dec',
                       ],
                       series: [
-                        [100, 385, 490, 492, 554, 586, 698, 695],
-                        [67, 152, 143, 240, 287, 335, 435, 437],
-                        [23, 113, 67, 108, 190, 239, 307, 308],
+                        [100, 385, 490, 492, 554, 586, 698, 695, 700, 800, 815, 890],
+                        [200, 152, 143, 240, 287, 335, 435, 437, 600, 570, 712, 850],
+                        [130, 113, 67, 108, 190, 239, 307, 308, 400, 470, 500, 700],
                       ],
                     }}
                     type="Line"
                     options={{
                       low: 0,
-                      high: 800,
+                      high: 900,
                       showArea: false,
                       height: '245px',
                       axisX: {
@@ -185,13 +206,13 @@ function Dashboard() {
               <Card.Footer>
                 <div className="legend">
                   <i className="fas fa-circle text-info" />
-                  Open
+                  Partner
                   {' '}
                   <i className="fas fa-circle text-danger" />
-                  Click
+                  Volunteer
                   {' '}
                   <i className="fas fa-circle text-warning" />
-                  Click Second Time
+                  Other Organization
                 </div>
                 <hr />
                 <div className="stats">
@@ -201,7 +222,75 @@ function Dashboard() {
               </Card.Footer>
             </Card>
           </Col>
-          <Col md="4">
+          <Col md="3">
+            <Card className="card-user">
+              <div className="card-image">
+                <img
+                  alt="..."
+                  src={
+                    require('assets/img/photo-1431578500526-4d9613015464.jpeg')
+                      .default
+                  }
+                />
+              </div>
+              <Card.Body>
+                <div className="author">
+                  <a href="https://www.facebook.com/passerelles.numeriques">
+                    <img
+                      alt="..."
+                      className="avatar border-gray"
+                      src={require('assets/img/faces/pn-logo.png').default}
+                    />
+                    <h5 className="title"><b>TOP dornors</b></h5>
+                  </a>
+                  <p className="description text-left">
+                    <b className="text-warning">TOP 1:</b>
+                    {' '}
+                    Cư Nguyễn
+                  </p>
+                  <p className="description text-left">
+                    <b className="text-danger text-left">TOP 2:</b>
+                    {' '}
+                    Nguyễn Ngọc Huy
+                  </p>
+                  <p className="description text-left">
+                    <b className="text-primary text-left">TOP 3:</b>
+                    {' '}
+                    Phạm Anh Tuấn
+                  </p>
+                  <p className="description text-left">
+                    <b className="text-left">TOP 4:</b>
+                    {' '}
+                    Nguyễn Thị Diễm
+                  </p>
+                  <p className="description text-left">
+                    <b className="text-left">TOP 5:</b>
+                    {' '}
+                    Lê Thị Hồng Hạnh
+                  </p>
+                </div>
+              </Card.Body>
+              <hr />
+              <br />
+              {/* <div className="button-container mr-auto ml-auto">
+                <Button
+                  className="btn-simple btn-icon"
+                  onClick={(e) => e.preventDefault()}
+                  variant="link"
+                >
+                  <i className="fab fa-facebook-square" />
+                </Button>
+                <Button
+                  className="btn-simple btn-icon"
+                  onClick={(e) => e.preventDefault()}
+                  variant="link"
+                >
+                  <i className="fab fa-google-plus-square" />
+                </Button>
+              </div> */}
+            </Card>
+          </Col>
+          {/* <Col md="4">
             <Card>
               <Card.Header>
                 <Card.Title as="h4">Email Statistics</Card.Title>
@@ -237,10 +326,10 @@ function Dashboard() {
                 </div>
               </Card.Body>
             </Card>
-          </Col>
+          </Col> */}
         </Row>
-        <Row>
-          <Col md="6">
+        {/* <Row>
+          <Col md="10">
             <Card>
               <Card.Header>
                 <Card.Title as="h4">2017 Sales</Card.Title>
@@ -334,7 +423,8 @@ function Dashboard() {
                 </div>
               </Card.Footer>
             </Card>
-          </Col>
+          </Col> */}
+        {/*
           <Col md="6">
             <Card className="card-tasks">
               <Card.Header>
@@ -638,7 +728,7 @@ function Dashboard() {
               </Card.Footer>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
       </Container>
     </>
   );

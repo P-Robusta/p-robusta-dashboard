@@ -12,13 +12,16 @@ import Footer from 'components/Footer/Footer';
 import Sidebar from 'components/Sidebar/Sidebar';
 import FixedPlugin from 'components/FixedPlugin/FixedPlugin';
 // import Login from 'components/Login/Login';
-import { dashboardRoutes } from 'routes.js';
-
+import { dashboardRoutes, routeTable } from 'routes.js';
 import sidebarImage from 'assets/img/sidebar-3.jpg';
-// import { listTable } from 'routes';
-// import { Redirect } from 'react-router-dom';
-// import NotFound from '../components/Page/NotFound';
-import Dashboard from 'views/Dashboard';
+// import Profile from 'views/Profile';
+// import BannerEdit from '../components/TableList/Banner/BannerEdit';
+import NotFound from '../components/Page/NotFound';
+// import BannerEdit from '../components/TableList/Banner/BannerEdit';
+import Notifications from '../views/Notifications';
+import Dashboard from '../views/Dashboard';
+// import PostEdit from '../components/TableList/Posts/PostEdit';
+import { edit } from 'routes';
 
 function Admin() {
   const [image, setImage] = React.useState(sidebarImage);
@@ -61,10 +64,15 @@ function Admin() {
           <div className="content">
             <Switch>
               <Route path="/admin" render={() => <Dashboard />} exact />
-              <Route>
-                {getRoutes(dashboardRoutes)}
-              </Route>
-              <Route path="/admin/*" render={() => <b> Not Found This Request</b>} />
+              {/* <Route path="/admin/table/banner/:id/edit" render={(param) => <BannerEdit params={param} />} exact />
+              <Route path="/admin/table/post/:id/edit" render={(param) => <PostEdit params={param} />} exact /> */}
+              <Route path="/admin/table/notifications" render={() => <Notifications />} exact />
+              <Route path="/admin/table/banner/:id/notifications" render={() => <Notifications />} exact />
+              {getRoutes(dashboardRoutes)}
+              {getRoutes(routeTable)}
+              {getRoutes(edit)}
+              <Route path="/admin/*" render={() => <NotFound />} />
+              <Route path="/admin/table/*" render={() => <NotFound />} />
             </Switch>
           </div>
           <Footer />

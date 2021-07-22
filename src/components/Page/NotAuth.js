@@ -11,13 +11,13 @@ const NotAuth = () => (
     </Helmet>
     <div className="outer-login">
       <div className="inner-login">
-        <p>
+        <div>
           Loading...
           &emsp;
           <Spinner animation="border" variant="warning" size="sm" />
-        </p>
+        </div>
         <h3>
-          Can't access this page!
+          Checking data...
           {' '}
           <small><Link to="/login">Login?</Link></small>
         </h3>

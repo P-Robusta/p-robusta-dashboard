@@ -31,9 +31,9 @@ function Profile() {
                         <label>Company (disabled)</label>
                         <Form.Control
                           defaultValue="Passerelles numériques Viet Nam"
-                          disabled
                           placeholder="Company"
                           type="text"
+                          disabled
                         />
                       </Form.Group>
                     </Col>
@@ -49,10 +49,13 @@ function Profile() {
                         />
                       </Form.Group>
                     </Col>
+                  </Row>
+                  <Row>
                     <Col md="12">
                       <Form.Group>
                         <label>Address</label>
                         <Form.Control
+                          cols="80"
                           defaultValue="99 Tô Hiến Thành, Phước Mỹ, Sơn Trà"
                           placeholder="Home Address"
                           type="text"
@@ -60,6 +63,7 @@ function Profile() {
                       </Form.Group>
                     </Col>
                   </Row>
+
                   <Row>
                     <Col className="pr-1" md="4">
                       <Form.Group>
@@ -96,13 +100,13 @@ function Profile() {
                       </Form.Group>
                     </Col>
                   </Row>
-                  <Button
+                  {/* <Button
                     className="btn-fill pull-right"
                     type="submit"
                     variant="info"
                   >
                     Update Profile
-                  </Button>
+                  </Button> */}
                   <div className="clearfix" />
                 </Form>
               </Card.Body>
@@ -141,13 +145,6 @@ function Profile() {
                   variant="link"
                 >
                   <i className="fab fa-facebook-square" />
-                </Button>
-                <Button
-                  className="btn-simple btn-icon"
-                  onClick={(e) => e.preventDefault()}
-                  variant="link"
-                >
-                  <i className="fab fa-google-plus-square" />
                 </Button>
               </div>
             </Card>

@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable function-paren-newline */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-unresolved */
@@ -10,44 +11,60 @@ import './style.css';
 import { useForm } from 'react-hook-form';
 import { postLogin, callLogin } from 'API/callAPI';
 import { Redirect, useHistory } from 'react-router-dom';
-import { getAuth } from 'helpers';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Spinner } from 'react-bootstrap';
 
 function Login(props) {
   const {
     register, handleSubmit, formState: { errors }
   } = useForm();
-
+  const [isLoad, setLoad] = useState(false);
+  const [err, getErr] = useState(false);
   const history = useHistory();
 
-  let errLogin = false;
+  const errLogin = false;
 
   useEffect(() => {
-    // if(sessionStorage.getItem())
     sessionStorage.removeItem('__token__');
   }, []);
-
-  const onSubmitLogin = (data) => {
+  useEffect(() => {
+    sessionStorage.removeItem('__token__');
+  }, [err]);
+  const onSubmitLogin = async (data) => {
+    setLoad(true);
     const check = document.getElementById('save_login');
     const body = {
       email: data.email,
       password: data.password
     };
+
     if (check.checked) {
-      callLogin(body, true).then(() => {
-        history.replace('/admin');
-        window.location.reload();
-        // <Redirect to="/admin" />
-      // window.location.assign('/admin');
-      }).catch(() => { errLogin = true; });
+      await callLogin(body, true).then((res) => {
+        setLoad(false);
+        if (res) {
+          history.replace('/admin');
+          window.location.reload();
+        } else {
+          setLoad(false);
+          getErr(true);
+        }
+      }).catch(() => {
+        getErr(true);
+      });
     } else {
-      callLogin(body, false).then(() => {
-        history.replace('/admin');
-        window.location.reload();
-        // <Redirect to="/admin" />
-        // window.location.assign('/admin');
-        // history.replace('/admin');
-      }).catch(() => { console.log('Thất bại'); errLogin = true; });
+      await callLogin(body, false).then((res) => {
+        setLoad(false);
+        console.log(res);
+        if (res) {
+          history.replace('/admin');
+          window.location.reload();
+        } else {
+          getErr(true);
+        }
+      }).catch(() => {
+        setLoad(false);
+        getErr(true);
+      });
     }
   };
   return (
@@ -62,7 +79,10 @@ function Login(props) {
                   alt="PNV-"
                 />
               </div>
-              <h3>Log in</h3>
+              <br />
+              <h3>
+                <b>Log in </b>
+              </h3>
               <div className="form-group">
                 <label>Email</label>
                 <input
@@ -72,9 +92,9 @@ function Login(props) {
                   {...register('email', { required: true })}
                 />
                 {errors.email && (
-                  <strong>
+                  <small>
                     <span className="text-danger">This field must be email</span>
-                  </strong>
+                  </small>
                 )}
               </div>
 
@@ -87,10 +107,21 @@ function Login(props) {
                   {...register('password', { required: true })}
                 />
                 {errors.password && (
-                  <strong>
+                  <small>
                     <span className="text-danger">This field cannot be left blank</span>
-                  </strong>
+                  </small>
                 )}
+                <br />
+                <small>
+                  {err ? (
+                    <div className="text-danger">
+                      {' '}
+                      <b>Login failed:</b>
+                      {' '}
+                      Check your account and password
+                    </div>
+                  ) : (<div> </div>)}
+                </small>
               </div>
 
               <div className="form-group">
@@ -98,9 +129,23 @@ function Login(props) {
                 &nbsp;
                 <label htmlFor="save_login"> Save login? </label>
               </div>
-              <button type="submit" className="btn btn-login btn-lg btn-block">Sign in</button>
-              <br />
-              {errLogin ? <div className="alert alert-danger" role="alert">Login failed: Check your account and password</div> : <div> </div>}
+              {isLoad ? (
+                <button className="btn btn-login btn-lg btn-block">
+                  Loading...
+                  &ensp;
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                </button>
+              )
+                : (
+                  <button type="submit" className="btn btn-login btn-lg btn-block">Sign in</button>
+                ) }
+
             </form>
 
           </div>
@@ -110,5 +155,4 @@ function Login(props) {
     </div>
   );
 }
-
 export default Login;

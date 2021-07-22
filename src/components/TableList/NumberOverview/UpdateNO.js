@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/void-dom-elements-no-children */
@@ -5,26 +6,31 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import NotificationAlert from 'react-notification-alert';
 import {
   Button,
   Card,
   Col,
-  Container, Row, Spinner
+  Container, FormLabel, Image, Row, Spinner
 } from 'react-bootstrap';
-import { createPost, notice } from 'API/callAPI';
+import { APIput, notice, callAPI } from 'API/callAPI';
 import axios from 'axios';
 import { CKEditor } from 'ckeditor4-react';
+import { useParams } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
-function CreatePost() {
+export default function UpdateNO() {
   const {
     register, handleSubmit, formState: { errors }
   } = useForm();
   const [Ckdata, setCkdata] = useState('No data is entered!');
   const [isLoad, setLoad] = useState(false);
-
+  const [oldData, setOldData] = useState();
+  const [newImg, setNewImg] = useState();
+  const id = useParams();
+  const history = useHistory();
   // Hiện thông báo
   const notificationAlertRef = React.useRef(null);
   const notify = (mes, type) => {
@@ -46,6 +52,17 @@ function CreatePost() {
     };
     notificationAlertRef.current.notificationAlert(options);
   };
+    // Call API
+  useEffect(() => {
+    const endpoint = `posts/${id.id}`;
+    callAPI(endpoint).then((res) => {
+      if (!res) {
+        alert('Error: Lost connect!');
+      } else {
+        setOldData(res);
+      }
+    });
+  }, []);
 
   // Lấy content text
   const getDataCK = (e) => {
@@ -64,53 +81,69 @@ function CreatePost() {
       headers: {
         'content-type': 'multipart/form-data',
       }
-    }).then((res) => {
-      console.log(res.data.data.display_url);
-      return res.data.data.display_url;
-    }).catch(() => false);
+    }).then((res) => res.data.data.display_url).catch(() => false);
   };
 
   // Submit in modal
   const submitPost = async (data) => {
     setLoad(true);
-    const formData = new FormData();
-    formData.append('title', data.title);
-    formData.append('short_title', data.short_title);
-    formData.append('summary', data.summary);
+    const formData = new URLSearchParams();
+    // eslint-disable-next-line camelcase
+    if (data.title === '' || data.title === oldData.title) {
+      console.log('title is incorrect');
+    } else {
+      formData.append('title', data.title);
+    }
+    if (data.short_title === '' || data.short_title === oldData.short_title) {
+      console.log('short_title is incorrect');
+    } else {
+      formData.append('short_title', data.short_title);
+    }
+    if (data.summary) {
+      formData.append('summary', data.summary);
+    }
     if (Ckdata) {
       formData.append('content', Ckdata);
-    } else {
-      formData.append('content', 'No data');
     }
-    formData.append('text_for_button', data.text_for_button);
-    formData.append('id_category', data.id_category);
+    if (data.text_for_button) {
+      formData.append('text_for_button', data.text_for_button);
+    }
+    if (data.id_category) {
+      formData.append('id_category', data.id_category);
+    }
     if (data.time_event) {
       formData.append('time_event', data.time_event);
     }
 
     let message = {
-      mes: 'Error: Posting failed. Maybe the title already exists!',
+      mes: 'Error: Editing Post failed! (title or short title is unique)',
       status: 'danger'
     };
-    let image = data.image_cover[0];
+    const image = data.image_cover[0];
     await uploadImage(image).then((res) => {
-      image = res;
+      if (res) {
+        setNewImg(res);
+        formData.append('image_cover', res);
+      }
+    }).catch(() => {
+      console.log('no image update');
     });
-    formData.append('image_cover', image);
-    await createPost(formData).then((res) => {
+    const endpoint = `posts/${id.id}`;
+    APIput(endpoint, formData).then((res) => {
       if (res === false) {
         notify(message.mes, message.status);
-        notice('Error', 'Posting failed. Maybe the title already exists!');
+        notice('Error', 'Editing post failed. Maybe the title already exists!');
         setLoad(false);
       } else {
         message = {
           mes: 'Post successfully',
           status: 'success'
         };
-        notice('Success ', `Post with titled: [ ${data.title} ] created successfully`);
+        notice('Success ', 'Editing Post successfully');
         notify(message.mes, message.status);
+        alert('Editing Post successfully');
         setLoad(false);
-        setTimeout(window.location.reload(), 6000);
+        history.push('/admin/table/post');
       }
     });
   };
@@ -126,23 +159,22 @@ function CreatePost() {
           <Col md="8">
             <Card>
               <Card.Header>
-                <Card.Title as="h4">Create Post</Card.Title>
+                <Card.Title as="h4">
+                  Update Post
+                  {id && ` ID: ${id.id}`}
+                </Card.Title>
               </Card.Header>
               <Card.Body>
                 <form method="POST" onSubmit={handleSubmit(submitPost)}>
                   <div className="form-group">
-                    <label>Title</label>
+                    <label>Title (unique)</label>
                     <input
                       type="title"
                       className="form-control"
                       placeholder="Enter Title"
-                      {...register('title', { required: true })}
+                      defaultValue={oldData ? oldData.title : ''}
+                      {...register('title')}
                     />
-                    {errors.title && (
-                      <strong>
-                        <span className="text-danger">This field is required</span>
-                      </strong>
-                    )}
                   </div>
                   <div className="row">
                     <div className="col lg-4">
@@ -151,30 +183,22 @@ function CreatePost() {
                         <input
                           type="text"
                           className="form-control"
+                          defaultValue={oldData ? oldData.summary : ''}
                           placeholder="Enter summary"
-                          {...register('summary', { required: true })}
+                          {...register('summary')}
                         />
-                        {errors.title && (
-                        <strong>
-                          <span className="text-danger">This field is required</span>
-                        </strong>
-                        )}
                       </div>
                     </div>
                     <div className="col lg-4">
                       <div className="form-group">
-                        <label>Short Title</label>
+                        <label>Short Title (unique)</label>
                         <input
                           type="text"
                           className="form-control"
                           placeholder="Enter short title"
-                          {...register('short_title', { required: true })}
+                          defaultValue={oldData ? oldData.short_title : ''}
+                          {...register('short_title')}
                         />
-                        {errors.short_title && (
-                        <strong>
-                          <span className="text-danger">This field is required</span>
-                        </strong>
-                        )}
                       </div>
                     </div>
                   </div>
@@ -186,13 +210,9 @@ function CreatePost() {
                         <input
                           type="text"
                           className="form-control"
-                          {...register('text_for_button', { required: true })}
+                          defaultValue={oldData ? oldData.text_for_button : ''}
+                          {...register('text_for_button')}
                         />
-                        {errors.text_for_button && (
-                        <strong>
-                          <span className="text-danger">This field is required</span>
-                        </strong>
-                        )}
                       </div>
                     </div>
 
@@ -203,13 +223,21 @@ function CreatePost() {
                           type="file"
                           className="form-control"
                           placeholder="Enter short title"
-                          {...register('image_cover', { required: true })}
+                          {...register('image_cover')}
                         />
-                        {errors.image_cover && (
-                        <strong>
-                          <span className="text-danger">This field is required</span>
-                        </strong>
-                        )}
+                      </div>
+                      <div className="row">
+                        <div className="form-group">
+                          <FormLabel>Old image of the post</FormLabel>
+                          <br />
+                          <Image width={150} src={oldData && oldData.image_cover} alt="old image" thumbnail />
+                        </div>
+                        <div className="space"> &emsp; &emsp;</div>
+                        <div className="form-group">
+                          <FormLabel>New image of the post</FormLabel>
+                          <br />
+                          <Image width={150} src={newImg || 'https://vanhoadoanhnghiepvn.vn/wp-content/uploads/2020/08/112815953-stock-vector-no-image-available-icon-flat-vector.jpg'} alt="new image" thumbnail />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -217,32 +245,29 @@ function CreatePost() {
                   <div className="row">
                     <div className="col lg-4">
                       <div className="form-group ">
-                        <select id="id_category" className="form-control" {...register('id_category', { required: true })}>
+                        <select id="id_category" defaultValue={oldData && oldData.id_category} className="form-control" {...register('id_category')}>
                           <option value="1">News</option>
                           <option value="2">Intro</option>
                         </select>
-                        {errors.id_category && (
-                        <strong>
-                          <span className="text-danger">This field is required</span>
-                        </strong>
-                        )}
                       </div>
                     </div>
                     <div className="col lg-6">
                       <div className="form-group">
                         <input className="form-control" type="date" {...register('time_event')} />
-                        {errors.time_event && (
-                        <strong>
-                          <span className="text-danger">This field is required</span>
-                        </strong>
-                        )}
                       </div>
                     </div>
                   </div>
                   <div className="form-group">
                     <label htmlFor="">Content</label>
                     <br />
-                    <CKEditor initData={<p>Write something...</p>} onChange={(e) => getDataCK(e)} />
+                    {
+                    oldData && (
+                    <CKEditor
+                      initData={oldData.content}
+                      onChange={(e) => getDataCK(e)}
+                    />
+                    )
+                    }
                   </div>
                   <div>
                     {isLoad ? (
@@ -252,7 +277,7 @@ function CreatePost() {
                         <Spinner animation="border" variant="warning" size="sm" />
                       </button>
                     )
-                      : (<button type="submit" className="btn btn-login btn-right"> Post </button>)}
+                      : (<button type="submit" className="btn btn-login btn-right"> Update </button>)}
                   </div>
                   <br />
                 </form>
@@ -265,9 +290,9 @@ function CreatePost() {
                 <img
                   alt="..."
                   src={
-                    require('assets/img/photo-1431578500526-4d9613015464.jpeg')
-                      .default
-                  }
+                                    require('assets/img/photo-1431578500526-4d9613015464.jpeg')
+                                      .default
+                                }
                 />
               </div>
               <Card.Body>
@@ -308,4 +333,3 @@ function CreatePost() {
     </>
   );
 }
-export default CreatePost;

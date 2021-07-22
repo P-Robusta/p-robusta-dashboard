@@ -2,19 +2,22 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import {
-  BrowserRouter, Route, Switch, Redirect
+  BrowserRouter, Route, Switch, Redirect, useLocation
 } from 'react-router-dom';
 // eslint-disable-next-line import/no-unresolved
-import PrivateRoute from 'helpers/PrivateRoute';
 import NotFound from 'components/Page/NotFound';
-import { getAuth } from './helpers';
+import { getAuth } from './helpers/getAuth';
 // Components
 import Login from './components/Login/Login';
 import Admin from './layouts/Admin';
 import NotAuth from './components/Page/NotAuth';
 
 const App = () => {
-  const token = sessionStorage.getItem('__token__');
+  let token = sessionStorage.getItem('__token__');
+  useEffect(() => {
+    getAuth();
+    token = sessionStorage.getItem('__token__');
+  }, []);
   return (
     <BrowserRouter>
       <Switch>

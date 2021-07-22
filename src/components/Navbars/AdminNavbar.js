@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -11,11 +13,13 @@ import { useLocation, useHistory, NavLink } from 'react-router-dom';
 import {
   Navbar, Container, Nav, Dropdown, Button
 } from 'react-bootstrap';
-import { getNotification } from 'API/callAPI';
+import { callAPI } from 'API/callAPI';
 
 function Header() {
   const history = useHistory();
   const location = useLocation();
+
+  const activeRoute = (routeName) => (location.pathname.indexOf(routeName) > -1 ? 'notifications' : 'admin/notifications');
   const mobileSidebarToggle = (e) => {
     e.preventDefault();
     document.documentElement.classList.toggle('nav-open');
@@ -29,27 +33,24 @@ function Header() {
   };
   const [listNotice, setNotice] = useState();
 
-  const showNotice = (list = []) => {
-    if (list.length > 0) {
-      return list.map((prop, key) => (
-        <Dropdown.Item>
-          <div className="text-warning">{prop.title}</div>
-        </Dropdown.Item>
-      ));
-    }
-    return (
-      <Dropdown.Item>
-        {' '}
-        <div className="text-warning">No announcements</div>
-      </Dropdown.Item>
-    );
-  };
-
   useEffect(() => {
-    getNotification().then((data) => {
-      setNotice(data);
+    callAPI('notifications').then((data) => {
+      let count = 0;
+      if (data) {
+        const arr = data;
+        arr.map((value) => {
+          if (value.read === '0') {
+            count++;
+          }
+        });
+      }
+      setNotice(count);
     });
   }, []);
+
+  const readed = () => {
+    setNotice([]);
+  };
   async function LogOut() {
     console.log('logout');
     await localStorage.removeItem('__token__');
@@ -91,31 +92,17 @@ function Header() {
                 <span className="d-lg-none ml-1">Dashboard</span>
               </Nav.Link>
             </Nav.Item>
-            <Dropdown as={Nav.Item}>
-              <Dropdown.Toggle
-                as={Nav.Link}
-                data-toggle="dropdown"
-                id="dropdown-67443507"
-                variant="default"
-                className="m-0"
+            <Nav.Item>
+              <NavLink
+                className="nav-link"
+                activeClassName="active"
+                onClick={() => readed()}
+                to={activeRoute('admin/')}
               >
                 <i className="nc-icon nc-bell-55" />
-                <span className="notification">{listNotice && listNotice.length}</span>
+                <span className="notification">{listNotice && listNotice}</span>
                 <span className="d-lg ml-1">Notification</span>
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                {showNotice(listNotice)}
-              </Dropdown.Menu>
-            </Dropdown>
-            <Nav.Item>
-              <Nav.Link
-                className="m-0"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <i className="nc-icon nc-zoom-split" />
-                <span className="d-lg-block"> Search</span>
-              </Nav.Link>
+              </NavLink>
             </Nav.Item>
           </Nav>
           <Nav className="ml-auto" navbar>

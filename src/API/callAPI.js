@@ -15,47 +15,16 @@ export async function callAPI(endpoint, method = 'GET') {
     method,
     url: `${endpoint}`,
     headers: { Authorization: `Bearer ${token}` },
-  }).catch((err) => {
-    console.log(err);
-  });
-}
-
-// Login
-export async function callLogin(body, isSave) {
-  let token;
-  const method = 'POST';
-  return axios({
-    method,
-    url: 'login',
-    headers: {
-      Authorization: 'application/json'
-    },
-    data: body,
-  }).then((res) => {
-    if (res.data.success) {
-      token = res.data.data.token;
-      sessionStorage.setItem('__token__', token);
-      if (isSave === true) localStorage.setItem('__token__', token);
-      return true;
-    }
-    return false;
-  }).catch((err) => false);
-}
-// Banner
-export async function getBanner(endpoint = 'banners', method = 'GET') {
-  const token = sessionStorage.getItem('__token__');
-  return axios({
-    method,
-    url: `${endpoint}`,
-    headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
   }).then((res) => res.data.data).catch((err) => false);
 }
-export async function postBanner(body) {
+
+// Post API
+export async function APIpost(endpoint, body) {
   const token = sessionStorage.getItem('__token__');
   const method = 'POST';
   return axios({
     method,
-    url: 'banners',
+    url: endpoint,
     headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
     data: body,
   }).then((res) => {
@@ -63,16 +32,76 @@ export async function postBanner(body) {
     return res.data.data;
   }).catch((err) => {
     console.log(err);
-    return 'Retrieving data failed!';
+    return false;
+  });
+}
+// API put
+export async function APIput(endpoint, body) {
+  const token = sessionStorage.getItem('__token__');
+  const method = 'PUT';
+  return axios({
+    method,
+    url: endpoint,
+    headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
+    data: body,
+  }).then((res) => res.data.data).catch((err) => {
+    console.log(err);
+    return false;
   });
 }
 
-// Notifications
-export async function getNotification(endpoint = 'notifications', method = 'GET') {
+// Login
+export async function callLogin(body, isSave) {
+  let token;
+  const method = 'POST';
+  try {
+    return axios({
+      method,
+      url: 'login',
+      headers: {
+        Authorization: 'application/json'
+      },
+      data: body,
+    }).then((res) => {
+      if (res.data.success) {
+        token = res.data.data.token;
+        sessionStorage.setItem('__token__', token);
+        if (isSave === true) localStorage.setItem('__token__', token);
+        return true;
+      }
+      return false;
+    }).catch((err) => false);
+  } catch (error) {
+    return false;
+  }
+}
+
+// Create Post
+export function createPost(body) {
   const token = sessionStorage.getItem('__token__');
+  const method = 'POST';
+  return axios({
+    method,
+    url: 'posts',
+    headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
+    data: body,
+  }).catch(() => false);
+}
+
+// Notifications
+
+export async function notice(tit, mes) {
+  const body = {
+    title: tit,
+    message: mes
+  };
+  const token = sessionStorage.getItem('__token__');
+  const endpoint = 'notifications';
+  const method = 'POST';
   return axios({
     method,
     url: `${endpoint}`,
     headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
+    data: body,
   }).then((res) => res.data.data).catch((err) => false);
 }

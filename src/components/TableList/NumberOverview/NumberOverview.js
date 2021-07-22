@@ -1,44 +1,48 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable import/no-unresolved */
-import { getBanner } from 'API/callAPI';
+import { callAPI } from 'API/callAPI';
 import React, { useEffect, useState } from 'react';
 import { Card, Spinner, Table } from 'react-bootstrap';
 // import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import AddBanner from './Modal/Banner/AddBanner';
 
 export default function NumberOverview() {
-  const [listBanner, setList] = useState();
+  const [listData, setList] = useState();
   const show = (list) => {
-    if (list.length) {
-      return list.map((prop, key) => (
-        <tr key={key}>
+    if (list) {
+      return (
+        <tr>
           <td>
-            {key + 1}
+            {list.current_students}
+          </td>
+          <td>{list.alumni}</td>
+          <td>{list.total_students}</td>
+          <td>
+            {list.percent_get_job}
+            %
           </td>
           <td>
-            Content:
-            {prop.text}
+            {list.average_wage}
+            {' '}
+            VNĐ
           </td>
-          <td><img width="100" height="70" src={prop.image} alt="image of banner" /></td>
           <td>
-            <NavLink
-              to="#"
-              className="nav-link"
-              activeClassName="active"
-            >
-              {' '}
-              Manage This Banner
-            </NavLink>
+            {list.percent_alumni_it}
+            %
+          </td>
+          <td>
+            {list.alumni_allowance}
+            %
           </td>
         </tr>
-      ));
+      );
     }
   };
   useEffect(() => {
-    getBanner().then((data) => {
+    callAPI('number_overviews').then((data) => {
       setList(data);
     });
   }, []);
@@ -59,19 +63,21 @@ export default function NumberOverview() {
         </Card.Header>
         <Card.Body className="table-full-width table-responsive px-0">
           <br />
-          <AddBanner />
           <br />
           <Table className="table-hover">
             <thead>
               <tr>
-                <th className="border-0">Number List</th>
-                <th className="border-0">Text</th>
-                <th className="border-0">Image</th>
-                <th className="border-0">Action</th>
+                <th className="border-0">Number of current student</th>
+                <th className="border-0">Alumni</th>
+                <th className="border-0">Total Students</th>
+                <th className="border-0">Employment rate</th>
+                <th className="border-0">Average Wage</th>
+                <th className="border-0">IT employment rate</th>
+                <th className="border-0">Alumni's return donation rate</th>
               </tr>
             </thead>
             <tbody>
-              {listBanner ? show(listBanner) : (
+              {listData ? show(listData) : (
                 <tr>
                   <td>
                     Loading...
