@@ -10,10 +10,13 @@ import {
   Col
 } from 'react-bootstrap';
 import { callAPI } from 'API/callAPI';
+import { Link } from 'react-router-dom';
 
 function Dashboard() {
   const [listOverview, setList] = useState();
+  // eslint-disable-next-line no-unused-vars
   const [listDonor, setListDonor] = useState();
+  const [topDonor, settopDonor] = useState();
 
   function Sort(arr) {
     const len = arr.length;
@@ -33,9 +36,13 @@ function Dashboard() {
       setList(data);
     });
     callAPI('donors').then((data) => {
-      if (data) {
-        const sort = Sort(data);
-        setListDonor(sort);
+      let sort = [];
+      if (data != null) {
+        if (data.length > 0) {
+          sort = Sort(data);
+          settopDonor(sort);
+        }
+        setListDonor(data);
       }
     });
   }, []);
@@ -68,7 +75,7 @@ function Dashboard() {
                 <hr />
                 <div className="stats">
                   <i className="fas fa-redo mr-1" />
-                  Update Now
+                  <Link to="table/number_overwiew">Update Now</Link>
                 </div>
               </Card.Footer>
             </Card>
@@ -94,7 +101,7 @@ function Dashboard() {
                 <hr />
                 <div className="stats">
                   <i className="fas fa-redo mr-1" />
-                  Update Now
+                  <Link to="table/number_overwiew">Update Now</Link>
                 </div>
               </Card.Footer>
             </Card>
@@ -123,7 +130,7 @@ function Dashboard() {
                 <hr />
                 <div className="stats">
                   <i className="fas fa-redo mr-1" />
-                  Update Now
+                  <Link to="table/number_overwiew">Update Now</Link>
                 </div>
               </Card.Footer>
             </Card>
@@ -153,7 +160,7 @@ function Dashboard() {
                 <hr />
                 <div className="stats">
                   <i className="fas fa-redo mr-1" />
-                  Update now
+                  <Link to="table/number_overwiew">Update Now</Link>
                 </div>
               </Card.Footer>
             </Card>
@@ -260,64 +267,80 @@ function Dashboard() {
                       className="avatar border-gray"
                       src={require('assets/img/faces/pn-logo.png').default}
                     />
-                    <h5 className="title"><b>TOP dornors</b></h5>
+                    {listDonor ? (
+                      <h5 className="title">
+                        <b>
+                          Currently there are
+                          {' '}
+                          {listDonor && listDonor.length}
+                          {' '}
+                          sponsors
+                        </b>
+                      </h5>
+                    ) : <div className="text-danger">There are currently no sponsors</div>}
                   </a>
-                  <p className="description text-left">
-                    <b className="text-warning">TOP 1:</b>
-                    {' '}
-                    {listDonor && listDonor[0].name}
-                    {' '}
-                    With:
-                    {' '}
-                    {listDonor && new Intl.NumberFormat().format(listDonor[0].total)}
-                    {' '}
-                    VNĐ
-                  </p>
-                  <p className="description text-left">
-                    <b className="text-danger text-left">TOP 2:</b>
-                    {' '}
-                    {listDonor && listDonor[1].name}
-                    {' '}
-                    With:
-                    {' '}
-                    {listDonor && new Intl.NumberFormat().format(listDonor[1].total)}
-                    {' '}
-                    VNĐ
-                  </p>
-                  <p className="description text-left">
-                    <b className="text-primary text-left">TOP 3:</b>
-                    {' '}
-                    {listDonor && listDonor[2].name}
-                    {' '}
-                    With:
-                    {' '}
-                    {listDonor && new Intl.NumberFormat().format(listDonor[2].total)}
-                    {' '}
-                    VNĐ
-                  </p>
-                  <p className="description text-left">
-                    <b className="text-left">TOP 4:</b>
-                    {' '}
-                    {listDonor && listDonor[3].name}
-                    {' '}
-                    With:
-                    {' '}
-                    {listDonor && new Intl.NumberFormat().format(listDonor[3].total)}
-                    {' '}
-                    VNĐ
-                  </p>
-                  <p className="description text-left">
-                    <b className="text-left">TOP 5:</b>
-                    {' '}
-                    {listDonor && listDonor[4].name}
-                    {' '}
-                    With:
-                    {' '}
-                    {listDonor && new Intl.NumberFormat().format(listDonor[4].total)}
-                    {' '}
-                    VNĐ
-                  </p>
+                  {topDonor ? (
+                    <div>
+                      <h5 className="title"><b>TOP dornors</b></h5>
+                      <p className="description text-left">
+                        <b className="text-warning">TOP 1:</b>
+                        {' '}
+                        {topDonor[0].name}
+                        {' '}
+                        With:
+                        {' '}
+                        {new Intl.NumberFormat().format(topDonor[0].total)}
+                        {' '}
+                        VNĐ
+                      </p>
+                      <p className="description text-left">
+                        <b className="text-danger text-left">TOP 2:</b>
+                        {' '}
+                        {topDonor[1].name}
+                        {' '}
+                        With:
+                        {' '}
+                        {new Intl.NumberFormat().format(topDonor[1].total)}
+                        {' '}
+                        VNĐ
+                      </p>
+                      <p className="description text-left">
+                        <b className="text-primary text-left">TOP 3:</b>
+                        {' '}
+                        {topDonor[2].name}
+                        {' '}
+                        With:
+                        {' '}
+                        {new Intl.NumberFormat().format(topDonor[2].total)}
+                        {' '}
+                        VNĐ
+                      </p>
+                      <p className="description text-left">
+                        <b className="text-left">TOP 4:</b>
+                        {' '}
+                        {topDonor[3].name}
+                        {' '}
+                        With:
+                        {' '}
+                        {new Intl.NumberFormat().format(topDonor[3].total)}
+                        {' '}
+                        VNĐ
+                      </p>
+                      <p className="description text-left">
+                        <b className="text-left">TOP 5:</b>
+                        {' '}
+                        {topDonor[4].name}
+                        {' '}
+                        With:
+                        {' '}
+                        {new Intl.NumberFormat().format(topDonor[4].total)}
+                        {' '}
+                        VNĐ
+                      </p>
+                    </div>
+                  ) : <div className="text-danger">No data in donor table!</div>}
                 </div>
+
               </Card.Body>
               <hr />
               <br />

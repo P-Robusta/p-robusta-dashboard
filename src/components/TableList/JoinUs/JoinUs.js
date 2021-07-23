@@ -55,30 +55,28 @@ export default function JoinUs() {
             {prop.title}
           </td>
           <td>
-            {prop.short_title}
+            {prop.id_tag}
           </td>
           <td>
-            {prop.summary}
-          </td>
-          <td><img width="100" src={prop.image_cover} alt="image of post" /></td>
-          <td>
-            {prop.content}
+            {prop.organisation}
           </td>
           <td>
-            {prop.time_event }
+            {prop.reporting_to}
           </td>
           <td>
-            <div className="row">
-              <b><i className="nc-icon nc-tag-content" /></b>
-              <NavLink
-                to={`/admin/table/post/${prop.id}/edit`}
-                className="nav-link"
-                activeClassName="active"
-              >
-                {' '}
-                Edit
-              </NavLink>
-            </div>
+            {prop.status}
+          </td>
+          <td>
+            {prop.project}
+          </td>
+          <td>
+            {prop.start_date}
+          </td>
+          <td>
+            {prop.location}
+          </td>
+          <td>
+            {prop.jd}
           </td>
           <td>
             <NavLink
@@ -98,7 +96,7 @@ export default function JoinUs() {
     console.log('...');
     return (
       <tr>
-        <td colSpan="4" className="text-warning"> No data in table</td>
+        <td colSpan="10" className="text-warning"> No data in table</td>
       </tr>
     );
   };
@@ -125,11 +123,13 @@ export default function JoinUs() {
               <tr>
                 <th className="border-0">Number List</th>
                 <th className="border-0">Title</th>
-                <th className="border-0">List Title</th>
-                <th className="border-0">Sumary</th>
-                <th className="border-0">Image Cover</th>
-                <th className="border-0">Content of post</th>
-                <th className="border-0">Time Event</th>
+                <th className="border-0">ID tag</th>
+                <th className="border-0">Organisation</th>
+                <th className="border-0">Reporting to</th>
+                <th className="border-0">Status</th>
+                <th className="border-0">Start Date</th>
+                <th className="border-0">Location</th>
+                <th className="border-0">Job Desciption</th>
                 <th className="border-0" colSpan="2">Action</th>
               </tr>
             </thead>

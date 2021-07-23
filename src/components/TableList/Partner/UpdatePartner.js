@@ -89,7 +89,7 @@ export default function UpdatePartner() {
     setLoad(true);
     const formData = new URLSearchParams();
     if (Ckdata) {
-      formData.append('text', Ckdata);
+      formData.append('note_for_image', Ckdata);
     }
 
     let message = {
@@ -100,19 +100,19 @@ export default function UpdatePartner() {
     const imagePNV = data.imgPNV[0];
     await uploadImage(image).then((res) => {
       if (res) {
-        formData.append('image', res);
+        formData.append('logo', res);
       }
     }).catch(() => {
       console.log('no image update');
     });
     await uploadImage(imagePNV).then((res) => {
       if (res) {
-        formData.append('imgPNV', res);
+        formData.append('image_with_pn', res);
       }
     }).catch(() => {
       console.log('no image update');
     });
-    const endpoint = `partnes/${id.id}`;
+    const endpoint = `partnes/${oldData.id}`;
     APIput(endpoint, formData).then((res) => {
       if (res === false) {
         notify(message.mes, message.status);
@@ -145,7 +145,7 @@ export default function UpdatePartner() {
               <Card.Header>
                 <Card.Title as="h4">
                   Update Parner
-                  {id && ` ID: ${id.id}`}
+                  {oldData && `: ${oldData.name}`}
                 </Card.Title>
               </Card.Header>
               <Card.Body>
@@ -184,14 +184,14 @@ export default function UpdatePartner() {
                       <div className="form-group">
                         <label>Image PNV with Partner</label>
                         <br />
-                        <img width="200" src={oldData && oldData.imgPNV} alt="Logo of Parner" />
+                        <img width="200" src={oldData && oldData.image_with_pn} alt="Logo of Parner" />
                       </div>
                     </div>
                     <div className="col lg-5">
                       <div className="form-group">
                         <label>Image Logo of Partner</label>
                         <br />
-                        <img width="200" src={oldData && oldData.image} alt="Logo of Parner" />
+                        <img width="200" src={oldData && oldData.logo} alt="Logo of Parner" />
                       </div>
                     </div>
 

@@ -5,23 +5,24 @@
 /* eslint-disable import/no-unresolved */
 
 import React from 'react';
-import { useLocation, Route, Switch } from 'react-router-dom';
+import {
+  useLocation, Route, Switch, Redirect
+} from 'react-router-dom';
 
 import AdminNavbar from '../components/Navbars/AdminNavbar';
 import Footer from 'components/Footer/Footer';
 import Sidebar from 'components/Sidebar/Sidebar';
 import FixedPlugin from 'components/FixedPlugin/FixedPlugin';
 // import Login from 'components/Login/Login';
-import { dashboardRoutes, routeTable } from 'routes.js';
+import { dashboardRoutes, routeTable, edit } from 'routes.js';
 import sidebarImage from 'assets/img/sidebar-3.jpg';
 // import Profile from 'views/Profile';
 // import BannerEdit from '../components/TableList/Banner/BannerEdit';
 import NotFound from '../components/Page/NotFound';
 // import BannerEdit from '../components/TableList/Banner/BannerEdit';
 import Notifications from '../views/Notifications';
-import Dashboard from '../views/Dashboard';
+// import Dashboard from '../views/Dashboard';
 // import PostEdit from '../components/TableList/Posts/PostEdit';
-import { edit } from 'routes';
 
 function Admin() {
   const [image, setImage] = React.useState(sidebarImage);
@@ -63,11 +64,10 @@ function Admin() {
           <AdminNavbar />
           <div className="content">
             <Switch>
-              <Route path="/admin" render={() => <Dashboard />} exact />
-              {/* <Route path="/admin/table/banner/:id/edit" render={(param) => <BannerEdit params={param} />} exact />
-              <Route path="/admin/table/post/:id/edit" render={(param) => <PostEdit params={param} />} exact /> */}
+              <Route path="/admin" render={() => <Redirect to="admin/dashboard" />} exact />
               <Route path="/admin/table/notifications" render={() => <Notifications />} exact />
               <Route path="/admin/table/banner/:id/notifications" render={() => <Notifications />} exact />
+              <Route path="/admin/table/post/:id/notifications" render={() => <Notifications />} exact />
               {getRoutes(dashboardRoutes)}
               {getRoutes(routeTable)}
               {getRoutes(edit)}

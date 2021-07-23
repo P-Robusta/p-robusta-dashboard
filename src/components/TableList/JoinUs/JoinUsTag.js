@@ -19,16 +19,11 @@ import { notice } from 'API/callAPI';
 import { callAPI } from 'API/callAPI';
 import { APIpost } from 'API/callAPI';
 
-export default function Banner() {
+export default function JoinUsTag() {
   const [listBanner, setList] = useState();
   const [showModal, setShowModal] = useState(false);
   const [isLoad, setLoad] = useState(false);
   const [componentStatus, setStatus] = useState(0);
-  const [Ckdata, setCkdata] = useState('No data is entered!');
-
-  const getDataCK = (e) => {
-    setCkdata(e.target.value);
-  };
 
   const handleShow = () => {
     setShowModal(true);
@@ -41,21 +36,21 @@ export default function Banner() {
   };
 
   useEffect(() => {
-    callAPI('banners').then((data) => {
+    callAPI('join_us_tags').then((data) => {
       setList(data);
     });
   }, []);
 
   useEffect(() => {
-    callAPI('banners').then((data) => {
+    callAPI('join_us_tags').then((data) => {
       setList(data);
     });
   }, [componentStatus]);
 
   const del = (id) => {
-    const status = callAPI(`banner/${id}`, 'DELETE');
+    const status = callAPI(`join_us_tags/${id}`, 'DELETE');
     if (status) {
-      alert(`Successfully deleted banner with id: ${id}`);
+      alert(`Successfully deleted join us tag with id: ${id}`);
     } else {
       alert('Delete failed');
     }
@@ -69,76 +64,41 @@ export default function Banner() {
             {key + 1}
           </td>
           <td>
-            HTML:
-            {prop.text}
+            {prop.tag}
           </td>
-          <td><img width="100" src={prop.image} alt="image of banner" /></td>
           <td>
-            <div className="row">
-              <b><i className="nc-icon nc-tag-content" /></b>
-              <NavLink
-                to={`/admin/table/banner/${prop.id}/edit`}
-                className="nav-link"
-                activeClassName="active"
-              >
-                {' '}
-                Edit
-              </NavLink>
-              <NavLink
-                to="#"
-                onClick={() => del(prop.id)}
-                className="nav-link text-danger"
-                activeClassName="active"
-              >
-                <i className="nc-icon nc-simple-remove" />
-                {' '}
-                Delete
-              </NavLink>
-            </div>
+            <NavLink
+              to="#"
+              onClick={() => del(prop.id)}
+              className="nav-link text-danger"
+              activeClassName="active"
+            >
+              <i className="nc-icon nc-simple-remove" />
+              {' '}
+              Delete
+            </NavLink>
           </td>
         </tr>
       ));
     }
     return (
       <tr key={1}>
-        <td colSpan="4" className="text-warning"> No data in table</td>
+        <td colSpan="10" className="text-warning"> No data in table</td>
       </tr>
     );
-  };
-
-  // Upload Image
-  const uploadImage = async (img) => {
-    const body = new FormData();
-    body.append('key', '22db36e00bee3ef919df52f806224a17');
-    body.append('image', img);
-    return axios({
-      method: 'post',
-      url: 'https://api.imgbb.com/1/upload',
-      data: body,
-      headers: {
-        'content-type': 'multipart/form-data',
-      }
-    }).then((res) => res.data.data.display_url).catch(() => false);
   };
 
   // Submit in modal
   const onFormSubmit = async (e) => {
     e.preventDefault();
     setLoad(true);
-    const formData = new URLSearchParams();
-    const string = Ckdata;
-    formData.append('text', string);
-    const img = document.getElementById('image_raw').files[0];
-    let image = '';
-    await uploadImage(img).then((res) => {
-      if (res) {
-        image = res;
-        formData.append('image', image);
-      }
-    });
-    await APIpost('banners', formData);
+    const text = document.getElementById('tag').value;
+    const formData = {
+      tag: text
+    };
+    await APIpost('join_us_tags', formData);
     setStatus(componentStatus + 1);
-    await notice('Success ', 'Create a banner successfully');
+    await notice('Success ', 'Create a Tag Name successfully');
     setLoad(false);
     handleClose();
   };
@@ -159,27 +119,23 @@ export default function Banner() {
         <Card.Body className="table-full-width table-responsive px-0">
           <br />
           <div>
-             &emsp;&emsp;
+        &emsp;&emsp;
             <Button variant="outline-danger" onClick={handleShow}>
               <i className="nc-icon nc-simple-add" />
               &ensp;
-              New Banner
+              New Join Us Tag
             </Button>
           </div>
 
           <Modal show={showModal} onHide={handleClose}>
             <Form onSubmit={onFormSubmit} encType="multipart/form-data">
               <Modal.Header closeButton>
-                <Modal.Title>Create New Banner</Modal.Title>
+                <Modal.Title>Create New Tag Name</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <Form.Group className="mb-3">
-                  <Form.Label>Content in banner</Form.Label>
-                  <textarea className="form-control" rows="4" cols="50" onChange={(e) => getDataCK(e)} />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Choose the image for banner</Form.Label>
-                  <input className="form-control" name="image_raw" id="image_raw" type="file" />
+                  <Form.Label>New Tag Name</Form.Label>
+                  <input className="form-control" id="tag" type="text" required />
                 </Form.Group>
               </Modal.Body>
               <Modal.Footer>
@@ -201,7 +157,7 @@ export default function Banner() {
                 )
                   : (
                     <Button variant="primary" type="submit">
-                      Save Changes
+                      Create
                     </Button>
                   ) }
 
@@ -213,8 +169,7 @@ export default function Banner() {
             <thead>
               <tr>
                 <th className="border-0">Number List</th>
-                <th className="border-0">Content</th>
-                <th className="border-0">Image</th>
+                <th className="border-0">Tag Name</th>
                 <th className="border-0">Action</th>
               </tr>
             </thead>

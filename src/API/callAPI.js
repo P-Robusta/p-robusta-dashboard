@@ -6,8 +6,8 @@
 import axios from 'axios';
 
 // const API_URL =
-// axios.defaults.baseURL = 'https://passerellesnumeriques-robusta.herokuapp.com/api';
-axios.defaults.baseURL = 'http://127.0.0.1:8000/api';
+axios.defaults.baseURL = 'https://passerellesnumeriques-robusta.herokuapp.com/api';
+// axios.defaults.baseURL = 'http://127.0.0.1:8000/api';
 // call API
 export async function callAPI(endpoint, method = 'GET') {
   const token = sessionStorage.getItem('__token__');

@@ -1,6 +1,7 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+import { CKEditor } from 'ckeditor4-react';
 import React from 'react';
 
 // react-bootstrap components
@@ -89,14 +90,8 @@ function Profile() {
                   <Row>
                     <Col md="12">
                       <Form.Group>
-                        <label>About Me</label>
-                        <Form.Control
-                          cols="80"
-                          defaultValue="Passerelles numériques is a French NGO created in 2005 and operating in Cambodia, the Philippines and Vietnam"
-                          placeholder="Here can be your description"
-                          rows="4"
-                          as="textarea"
-                        />
+                        <label>About Us</label>
+                        <CKEditor initData={<p>Passerelles numériques is a French NGO created in 2005 and operating in Cambodia, the Philippines and Vietnam</p>} />
                       </Form.Group>
                     </Col>
                   </Row>

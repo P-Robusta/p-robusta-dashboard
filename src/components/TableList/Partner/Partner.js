@@ -66,10 +66,13 @@ export default function Partner() {
           <td>
             {key + 1}
           </td>
-          <td><img width="100" src={prop.imgPNV} alt="image of post" /></td>
-          <td><img width="100" src={prop.image} alt="image of post" /></td>
           <td>
-            {prop.text}
+            {prop.name}
+          </td>
+          <td><img width="100" src={prop.image_with_pn} alt="image of post" /></td>
+          <td><img width="100" src={prop.logo} alt="image of post" /></td>
+          <td>
+            {prop.note_for_image}
           </td>
           <td>
             <div className="row">
@@ -123,23 +126,27 @@ export default function Partner() {
     e.preventDefault();
     setLoad(true);
     const formData = new URLSearchParams();
-    const imgPNV = document.getElementById('imgPNV').files[0];
+    const imgPNV = document.getElementById('image_with_pn').files[0];
     const logo = document.getElementById('logo').files[0];
-    const text = document.getElementById('text').value;
+    const text = document.getElementById('note_for_image').value;
+    const name = document.getElementById('name').value;
+    const website = document.getElementById('website').value;
     await uploadImage(imgPNV).then((res) => {
       if (res) {
-        formData.append('imgPNV', res);
+        formData.append('image_with_pn', res);
       }
     });
     await uploadImage(logo).then((res) => {
       if (res) {
-        formData.append('image', res);
+        formData.append('logo', res);
       }
     });
-    formData.append('text', text);
+    formData.append('note_for_image', text);
+    formData.append('name', name);
+    formData.append('website', website);
     await APIpost('partners', formData);
     setStatus(componentStatus + 1);
-    await notice('Success: ', 'Add a new partner successfully');
+    await notice('Success', 'Add a new partner successfully');
     setLoad(false);
     handleClose();
   };
@@ -173,16 +180,24 @@ export default function Partner() {
               </Modal.Header>
               <Modal.Body>
                 <Form.Group className="mb-3">
-                  <Form.Label>Summary about partner</Form.Label>
-                  <textarea className="form-control" rows="4" cols="50" id="text" />
+                  <Form.Label>Name's Partner</Form.Label>
+                  <input className="form-control" type="text" id="name" required />
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>Image of partner with PNV</Form.Label>
-                  <input className="form-control" name="imagePNV" id="imgPNV" type="file" />
+                  <input className="form-control" name="image_with_pn" id="image_with_pn" type="file" required />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Summary about partner</Form.Label>
+                  <textarea className="form-control" rows="4" cols="50" id="note_for_image" required />
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>Logo of partner</Form.Label>
-                  <input className="form-control" name="logo" id="logo" type="file" />
+                  <input className="form-control" name="logo" id="logo" type="file" required />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Website's Partner</Form.Label>
+                  <input className="form-control" type="text" id="website" required />
                 </Form.Group>
               </Modal.Body>
               <Modal.Footer>
@@ -216,6 +231,7 @@ export default function Partner() {
             <thead>
               <tr>
                 <th className="border-0">Number List</th>
+                <th className="border-0">Partner's Name</th>
                 <th className="border-0">Image with PNV</th>
                 <th className="border-0">Logo</th>
                 <th className="border-0">Summary about the partner</th>

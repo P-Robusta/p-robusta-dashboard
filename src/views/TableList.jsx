@@ -45,7 +45,7 @@ function TableList() {
           <Col md="12">
             <Card className="strpied-tabled-with-hover">
               <Card.Header>
-                <Card.Title as="h4">List Of Table In Database</Card.Title>
+                <Card.Title as="h4">List Of Table For Management</Card.Title>
                 <small>
                   <NavLink to="/admin">... admin </NavLink>
                   /

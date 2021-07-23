@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable consistent-return */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/void-dom-elements-no-children */
@@ -5,7 +7,7 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import NotificationAlert from 'react-notification-alert';
 import {
@@ -14,15 +16,15 @@ import {
   Col,
   Container, Row, Spinner
 } from 'react-bootstrap';
-import { createPost, notice } from 'API/callAPI';
-import axios from 'axios';
+import { APIpost, notice, callAPI } from 'API/callAPI';
 import { CKEditor } from 'ckeditor4-react';
 
-export default function CreatePost() {
+export default function CreateJoinUs() {
   const {
     register, handleSubmit, formState: { errors }
   } = useForm();
   const [Ckdata, setCkdata] = useState('No data is entered!');
+  const [tag, setTags] = useState();
   const [isLoad, setLoad] = useState(false);
 
   // Hiện thông báo
@@ -51,63 +53,54 @@ export default function CreatePost() {
   const getDataCK = (e) => {
     setCkdata(e.editor.getData());
   };
-
-  // up ảnh
-  const uploadImage = (img) => {
-    const body = new FormData();
-    body.append('key', '22db36e00bee3ef919df52f806224a17');
-    body.append('image', img);
-    return axios({
-      method: 'post',
-      url: 'https://api.imgbb.com/1/upload',
-      data: body,
-      headers: {
-        'content-type': 'multipart/form-data',
-      }
-    }).then((res) => {
-      console.log(res.data.data.display_url);
-      return res.data.data.display_url;
-    }).catch(() => false);
+  useEffect(() => {
+    callAPI('join_us_tags').then((data) => {
+      setTags(data);
+    });
+  }, []);
+  const selectTag = (list) => {
+    if (list.length) {
+      return list.map((val, key) => (
+        <option value={val.id} key={key}>{val.tag}</option>
+      ));
+    }
+    return <option value="0">Not found tags</option>;
   };
-
-  // Submit in modal
   const submitPost = async (data) => {
     setLoad(true);
     const formData = new FormData();
     formData.append('title', data.title);
-    formData.append('short_title', data.short_title);
-    formData.append('summary', data.summary);
+    formData.append('organisation', data.organisation);
+    formData.append('reporting_to', data.reporting_to);
+    formData.append('location', data.location);
     if (Ckdata) {
-      formData.append('content', Ckdata);
+      formData.append('jd', Ckdata);
     } else {
-      formData.append('content', 'No data');
+      formData.append('jd', 'No description');
     }
-    formData.append('text_for_button', data.text_for_button);
-    formData.append('id_category', data.id_category);
-    if (data.time_event) {
-      formData.append('time_event', data.time_event);
+    formData.append('status', data.status);
+    formData.append('project', data.project);
+    formData.append('id_tag', data.id_tag);
+    if (data.start_date) {
+      formData.append('start_date', data.start_date);
     }
 
     let message = {
-      mes: 'Error: Posting failed. Maybe the title or short title already exists!',
+      mes: 'Error: Posting in Join Us failed. Maybe the API have problems!',
       status: 'danger'
     };
-    let image = data.image_cover[0];
-    await uploadImage(image).then((res) => {
-      image = res;
-    });
-    formData.append('image_cover', image);
-    await createPost(formData).then((res) => {
+    console.log(formData.values());
+    await APIpost('join_us', formData).then((res) => {
       if (res === false) {
         notify(message.mes, message.status);
-        notice('Error', 'Posting failed. Maybe the title already exists!');
+        notice('Error', 'Posting failed. Maybe the API have problems!');
         setLoad(false);
       } else {
         message = {
-          mes: 'Post successfully',
+          mes: 'Post in Join Us successfully',
           status: 'success'
         };
-        notice('Success ', `Post with titled: [ ${data.title} ] created successfully`);
+        notice('Success ', 'Posting Join Us information created successfully');
         notify(message.mes, message.status);
         setLoad(false);
         setTimeout(window.location.reload(), 6000);
@@ -126,33 +119,19 @@ export default function CreatePost() {
           <Col md="8">
             <Card>
               <Card.Header>
-                <Card.Title as="h4">Create Post</Card.Title>
+                <Card.Title as="h4">Join Us</Card.Title>
               </Card.Header>
               <Card.Body>
                 <form method="POST" onSubmit={handleSubmit(submitPost)}>
-                  <div className="form-group">
-                    <label>Title</label>
-                    <input
-                      type="title"
-                      className="form-control"
-                      placeholder="Enter Title"
-                      {...register('title', { required: true })}
-                    />
-                    {errors.title && (
-                      <strong>
-                        <span className="text-danger">This field is required</span>
-                      </strong>
-                    )}
-                  </div>
                   <div className="row">
                     <div className="col lg-4">
                       <div className="form-group">
-                        <label>Summary</label>
+                        <label>Title</label>
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Enter summary"
-                          {...register('summary', { required: true })}
+                          placeholder="Enter Title"
+                          {...register('title', { required: true })}
                         />
                         {errors.title && (
                         <strong>
@@ -163,14 +142,46 @@ export default function CreatePost() {
                     </div>
                     <div className="col lg-4">
                       <div className="form-group">
-                        <label>Short Title</label>
+                        <label>Location</label>
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Enter short title"
-                          {...register('short_title', { required: true })}
+                          placeholder="Enter Title"
+                          {...register('location', { required: true })}
                         />
-                        {errors.short_title && (
+                        {errors.location && (
+                        <strong>
+                          <span className="text-danger">This field is required</span>
+                        </strong>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col lg-4">
+                      <div className="form-group">
+                        <label>Organisation</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          {...register('organisation', { required: true })}
+                        />
+                        {errors.organisation && (
+                        <strong>
+                          <span className="text-danger">This field is required</span>
+                        </strong>
+                        )}
+                      </div>
+                    </div>
+                    <div className="col lg-4">
+                      <div className="form-group">
+                        <label>Reporting to</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          {...register('reporting_to', { required: true })}
+                        />
+                        {errors.reporting_to && (
                         <strong>
                           <span className="text-danger">This field is required</span>
                         </strong>
@@ -182,30 +193,28 @@ export default function CreatePost() {
                   <div className="row">
                     <div className="col lg-4">
                       <div className="form-group">
-                        <label>Text on button</label>
+                        <label>Status</label>
                         <input
                           type="text"
                           className="form-control"
-                          {...register('text_for_button', { required: true })}
+                          {...register('status', { required: true })}
                         />
-                        {errors.text_for_button && (
+                        {errors.status && (
                         <strong>
                           <span className="text-danger">This field is required</span>
                         </strong>
                         )}
                       </div>
                     </div>
-
-                    <div className="col lg-8">
+                    <div className="col lg-4">
                       <div className="form-group">
-                        <label>Image Cover</label>
+                        <label>Project</label>
                         <input
-                          type="file"
+                          type="text"
                           className="form-control"
-                          placeholder="Enter short title"
-                          {...register('image_cover', { required: true })}
+                          {...register('project', { required: true })}
                         />
-                        {errors.image_cover && (
+                        {errors.project && (
                         <strong>
                           <span className="text-danger">This field is required</span>
                         </strong>
@@ -217,11 +226,11 @@ export default function CreatePost() {
                   <div className="row">
                     <div className="col lg-4">
                       <div className="form-group ">
-                        <select id="id_category" className="form-control" {...register('id_category', { required: true })}>
-                          <option value="1">News</option>
-                          <option value="2">Intro</option>
+                        <label>Tags</label>
+                        <select id="id_tag" className="form-control" {...register('id_tag', { required: true })}>
+                          {tag && selectTag(tag)}
                         </select>
-                        {errors.id_category && (
+                        {errors.id_tag && (
                         <strong>
                           <span className="text-danger">This field is required</span>
                         </strong>
@@ -230,8 +239,9 @@ export default function CreatePost() {
                     </div>
                     <div className="col lg-6">
                       <div className="form-group">
-                        <input className="form-control" type="date" {...register('time_event')} />
-                        {errors.time_event && (
+                        <label>Start Day</label>
+                        <input className="form-control" type="date" {...register('start_date')} />
+                        {errors.start_date && (
                         <strong>
                           <span className="text-danger">This field is required</span>
                         </strong>
@@ -240,7 +250,7 @@ export default function CreatePost() {
                     </div>
                   </div>
                   <div className="form-group">
-                    <label htmlFor="">Content</label>
+                    <label htmlFor="">Job Description</label>
                     <br />
                     <CKEditor initData={<p>Write something...</p>} onChange={(e) => getDataCK(e)} />
                   </div>

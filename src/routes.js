@@ -3,10 +3,7 @@
 /* eslint-disable import/no-unresolved */
 import Dashboard from 'views/Dashboard';
 import TableList from 'views/TableList';
-// import Typography from 'views/Typography';
 import Notifications from 'views/Notifications';
-import Icons from 'views/Icons';
-import Profile from 'views/Profile';
 import CreatePost from 'views/CreatePost';
 import UpdatePost from 'components/TableList/Posts/UpdatePost.js';
 import Banner from './components/TableList/Banner/Banner.js';
@@ -18,6 +15,8 @@ import Feedback from './components/TableList/Feedback/Feedback';
 import UpdateBanner from './components/TableList/Banner/UpdateBanner';
 import Donors from './views/Donors.jsx';
 import UpdatePartner from './components/TableList/Partner/UpdatePartner';
+import CreateJoinUs from './views/Join_Us.jsx';
+import JoinUsTag from './components/TableList/JoinUs/JoinUsTag.js';
 
 const dashboardRoutes = [
   {
@@ -25,13 +24,6 @@ const dashboardRoutes = [
     name: 'Dashboard',
     icon: 'nc-icon nc-chart-pie-35',
     component: Dashboard,
-    layout: '/admin',
-  },
-  {
-    path: '/profile',
-    name: 'Profile',
-    icon: 'nc-icon nc-attach-87',
-    component: Profile,
     layout: '/admin',
   },
   {
@@ -49,13 +41,6 @@ const dashboardRoutes = [
     layout: '/admin',
   },
   {
-    path: '/notifications',
-    name: 'Notifications',
-    icon: 'nc-icon nc-bell-55',
-    component: Notifications,
-    layout: '/admin',
-  },
-  {
     path: '/donors',
     name: 'Donations',
     icon: 'nc-icon nc-chart-bar-32',
@@ -63,10 +48,17 @@ const dashboardRoutes = [
     layout: '/admin',
   },
   {
-    path: '/icon',
-    name: 'Choose Icon',
-    icon: 'nc-icon nc-satisfied',
-    component: Icons,
+    path: '/post_join_us',
+    name: 'Join Us',
+    icon: 'nc-icon nc-tap-01',
+    component: CreateJoinUs,
+    layout: '/admin',
+  },
+  {
+    path: '/notifications',
+    name: 'Notifications',
+    icon: 'nc-icon nc-bell-55',
+    component: Notifications,
     layout: '/admin',
   }
 ];
@@ -104,6 +96,13 @@ const routeTable = [
     name: 'Join Us',
     middle_path: 'table',
     component: JoinUs,
+    layout: '/admin',
+  },
+  {
+    path: '/table/join_us_tags',
+    name: 'Join Us Tag',
+    middle_path: 'table',
+    component: JoinUsTag,
     layout: '/admin',
   },
   {
